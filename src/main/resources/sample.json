@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Graph 1",
+    "verticesCount": 3,
+    "vertices": ["a", "b", "c"],
+    "edgesCount": 0,
+    "edges": []
+  },
+  {
+    "name": "Graph 2",
+    "verticesCount": 3,
+    "vertices": ["a", "b", "c"],
+    "edgesCount": 2,
+    "edges": [
+      {"v1": "a", "v2": "b"},
+      {"v1": "c", "v2": "a"}
+    ]
+  }
+]
