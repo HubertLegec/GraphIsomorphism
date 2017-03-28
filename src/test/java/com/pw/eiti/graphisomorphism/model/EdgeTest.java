@@ -1,8 +1,10 @@
-package com.pw.eiti;
+package com.pw.eiti.graphisomorphism.model;
 
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.pw.eiti.graphisomorphism.model.Edge;
 
 public class EdgeTest {
 

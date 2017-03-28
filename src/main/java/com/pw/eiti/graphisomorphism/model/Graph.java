@@ -1,6 +1,8 @@
-package com.pw.eiti;
+package com.pw.eiti.graphisomorphism.model;
 
 import org.apache.commons.collections.ListUtils;
+
+import com.pw.eiti.graphisomorphism.ui.InvalidGraphException;
 
 import java.util.*;
 

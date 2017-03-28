@@ -1,4 +1,4 @@
-package com.pw.eiti;
+package com.pw.eiti.graphisomorphism.ui;
 
 public class InvalidGraphException extends RuntimeException {
     public InvalidGraphException(String message) {

@@ -1,4 +1,4 @@
-package com.pw.eiti;
+package com.pw.eiti.graphisomorphism.model;
 
 
 public class Edge {

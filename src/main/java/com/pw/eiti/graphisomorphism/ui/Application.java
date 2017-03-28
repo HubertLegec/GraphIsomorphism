@@ -1,7 +1,9 @@
-package com.pw.eiti;
+package com.pw.eiti.graphisomorphism.ui;
 
 import java.io.IOException;
 import java.util.List;
+
+import com.pw.eiti.graphisomorphism.model.Graph;
 
 public class Application {
     public static void main(String[] args) {

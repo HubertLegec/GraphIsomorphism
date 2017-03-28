@@ -1,6 +1,10 @@
-package com.pw.eiti;
+package com.pw.eiti.graphisomorphism.model;
 
 import org.junit.Test;
+
+import com.pw.eiti.graphisomorphism.model.Edge;
+import com.pw.eiti.graphisomorphism.model.Graph;
+import com.pw.eiti.graphisomorphism.ui.InvalidGraphException;
 
 import java.util.Arrays;
 

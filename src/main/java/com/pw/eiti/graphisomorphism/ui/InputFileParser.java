@@ -1,6 +1,7 @@
-package com.pw.eiti;
+package com.pw.eiti.graphisomorphism.ui;
 
 import com.google.gson.Gson;
+import com.pw.eiti.graphisomorphism.model.Graph;
 
 import java.io.IOException;
 import java.nio.file.Files;
