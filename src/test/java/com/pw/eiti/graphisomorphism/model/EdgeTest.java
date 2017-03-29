@@ -4,23 +4,21 @@ package com.pw.eiti.graphisomorphism.model;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.pw.eiti.graphisomorphism.model.Edge;
-
 public class EdgeTest {
 
-    @Test
-    public void equalsElementsTest() {
-        Edge e1 = new Edge("a", "b");
-        Edge e2 = new Edge("a", "b");
+	@Test
+	public void equalsElementsTest() {
+		final Edge<String> e1 = new Edge<>("a", "b");
+		final Edge<String> e2 = new Edge<>("a", "b");
 
-        Assert.assertEquals(e1, e2);
-    }
+		Assert.assertEquals(e1, e2);
+	}
 
-    @Test
-    public void differentElementsTest() {
-        Edge e1 = new Edge("a", "b");
-        Edge e2 = new Edge("a", "c");
+	@Test
+	public void differentElementsTest() {
+		final Edge<String> e1 = new Edge<>("a", "b");
+		final Edge<String> e2 = new Edge<>("a", "c");
 
-        Assert.assertNotEquals(e1, e2);
-    }
+		Assert.assertNotEquals(e1, e2);
+	}
 }

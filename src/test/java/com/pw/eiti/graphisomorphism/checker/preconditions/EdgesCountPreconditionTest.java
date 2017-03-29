@@ -21,8 +21,8 @@ public class EdgesCountPreconditionTest {
 	@Test
 	public void testFullfils_success() throws Exception {
 		// given
-		final Graph graphA = mock(Graph.class);
-		final Graph graphB = mock(Graph.class);
+		final Graph<String> graphA = mock(Graph.class);
+		final Graph<String> graphB = mock(Graph.class);
 		when(graphA.getEdgesCount()).thenReturn(11);
 		when(graphB.getEdgesCount()).thenReturn(11);
 		// when
@@ -34,8 +34,8 @@ public class EdgesCountPreconditionTest {
 	@Test
 	public void testFullfils_failure() throws Exception {
 		// given
-		final Graph graphA = mock(Graph.class);
-		final Graph graphB = mock(Graph.class);
+		final Graph<String> graphA = mock(Graph.class);
+		final Graph<String> graphB = mock(Graph.class);
 		when(graphA.getEdgesCount()).thenReturn(11);
 		when(graphB.getEdgesCount()).thenReturn(12);
 		// when

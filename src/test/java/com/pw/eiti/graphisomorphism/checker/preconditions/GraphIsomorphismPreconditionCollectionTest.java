@@ -41,8 +41,8 @@ public class GraphIsomorphismPreconditionCollectionTest {
 		assertThat(fullfils).isFalse();
 	}
 
-	private Predocndition getMockPrecondition(final boolean isFullfiled) {
-		final Predocndition mockPrecond = mock(Predocndition.class);
+	private Precondition getMockPrecondition(final boolean isFullfiled) {
+		final Precondition mockPrecond = mock(Precondition.class);
 		when(mockPrecond.fullfils(any(), any())).thenReturn(isFullfiled);
 		return mockPrecond;
 	}

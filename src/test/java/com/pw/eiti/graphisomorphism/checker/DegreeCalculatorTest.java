@@ -4,13 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
 import com.pw.eiti.graphisomorphism.model.Edge;
 import com.pw.eiti.graphisomorphism.model.Graph;
 import com.pw.eiti.graphisomorphism.model.VertexDegree;
@@ -27,8 +27,8 @@ public class DegreeCalculatorTest {
 	@Test
 	public void testGetDegrees() throws Exception {
 		//given
-		final Graph mockGraph = mock(Graph.class);
-		final ArrayList<Edge> mockEdges = Lists.newArrayList(
+		final Graph<String> mockGraph = mock(Graph.class);
+		final List<Edge<String>> mockEdges = Arrays.asList(
 				getMockEdge("a", "b"),
 				getMockEdge("a", "c"),
 				getMockEdge("a", "d"),
@@ -46,8 +46,8 @@ public class DegreeCalculatorTest {
 		assertThat(degrees.get("d")).isEqualTo(new VertexDegree(2, 0));
 	}
 
-	private Edge getMockEdge(final String start, final String end) {
-		final Edge mockEdge = mock(Edge.class);
+	private Edge<String> getMockEdge(final String start, final String end) {
+		final Edge<String> mockEdge = mock(Edge.class);
 		when(mockEdge.getV1()).thenReturn(start);
 		when(mockEdge.getV2()).thenReturn(end);
 		return mockEdge;

@@ -7,28 +7,28 @@ import com.pw.eiti.graphisomorphism.model.Graph;
 /**
  * Class that defines the relation of isomorphism.
  */
-public class GraphIsomorphismDefinition {
-	private final Graph first;
-	private final Graph second;
-	private final Map<String, String> verticesMapping;
+public class GraphIsomorphismDefinition<V>  {
+	private final Graph<V> first;
+	private final Graph<V> second;
+	private final Map<V, V> verticesMapping;
 
-	public GraphIsomorphismDefinition(final Graph first, final Graph second,
-			final Map<String, String> verticesMapping)
+	public GraphIsomorphismDefinition(final Graph<V> first, final Graph<V> second,
+			final Map<V, V> verticesMapping)
 	{
 		this.first = first;
 		this.second = second;
 		this.verticesMapping = verticesMapping;
 	}
 
-	public Graph getFirst() {
+	public Graph<V> getFirst() {
 		return first;
 	}
 
-	public Graph getSecond() {
+	public Graph<V> getSecond() {
 		return second;
 	}
 
-	public Map<String, String> getVerticesMapping() {
+	public Map<V, V> getVerticesMapping() {
 		return verticesMapping;
 	}
 }

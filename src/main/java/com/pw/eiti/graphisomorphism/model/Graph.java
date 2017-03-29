@@ -1,85 +1,79 @@
 package com.pw.eiti.graphisomorphism.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.commons.collections.ListUtils;
 
 import com.pw.eiti.graphisomorphism.ui.InvalidGraphException;
 
-import java.util.*;
+public class Graph<V> {
+	private String name;
+	private List<V> vertices = new ArrayList<>();
+	private List<Edge<V>> edges = new ArrayList<>();
 
-public class Graph {
-    private String name;
-    private int verticesCount;
-    private int edgesCount;
-    private List<String> vertices = new ArrayList<>();
-    private List<Edge> edges = new ArrayList<>();
+	public int getVerticesCount() {
+		return vertices.size();
+	}
 
-    public int getVerticesCount() {
-        return verticesCount;
-    }
+	public int getEdgesCount() {
+		return edges.size();
+	}
 
-    public void setVerticesCount(int verticesCount) {
-        this.verticesCount = verticesCount;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public int getEdgesCount() {
-        return edgesCount;
-    }
+	public void setName(final String name) {
+		this.name = name;
+	}
 
-    public void setEdgesCount(int edgesCount) {
-        this.edgesCount = edgesCount;
-    }
+	public List<V> getVertices() {
+		return vertices;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setVertices(final List<V> vertices) {
+		this.vertices = vertices;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public List<Edge<V>> getEdges() {
+		return edges;
+	}
 
-    public List<String> getVertices() {
-        return vertices;
-    }
+	public void setEdges(final List<Edge<V>> edges) {
+		this.edges = edges;
+	}
 
-    public void setVertices(List<String> vertices) {
-        this.vertices = vertices;
-    }
+	public void addVertex(final V v) {
+		this.vertices.add(v);
+	}
 
-    public List<Edge> getEdges() {
-        return edges;
-    }
+	public void addEdge(final V v1, final V v2) {
+		this.edges.add(new Edge<V>(v1, v2));
+	}
 
-    public void setEdges(List<Edge> edges) {
-        this.edges = edges;
-    }
+	public void validate() {
+		checkVertices();
+		checkEdges();
+	}
 
-    public void validate() {
-        checkVertices();
-        checkEdges();
-    }
+	private void checkVertices() {
+		if (vertices.isEmpty()) {
+			throw new InvalidGraphException("Graph is empty!");
+		}
+	}
 
-    private void checkVertices() {
-        if (vertices.isEmpty()) {
-            throw new InvalidGraphException("Graph is empty!");
-        }
-        if (verticesCount != vertices.size()) {
-            throw new InvalidGraphException("Number of vertices is different from declared");
-        }
-    }
-
-    private void checkEdges() {
-        if (edgesCount != edges.size()) {
-            throw new InvalidGraphException("Number of edges is different from declared");
-        }
-        if (edges.size() != edges.parallelStream().distinct().count()) {
-            throw new InvalidGraphException("Graph has duplicated edges");
-        }
-        List<String> verticesFromEdges = edges.stream()
-                .map(e -> Arrays.asList(e.getV1(), e.getV2()))
-                .reduce(new ArrayList<>(), ListUtils::union);
-        List diff = ListUtils.removeAll(verticesFromEdges, vertices);
-        if (!diff.isEmpty()) {
-            throw new InvalidGraphException("Graph has edges with unknown vertices");
-        }
-    }
+	private void checkEdges() {
+		if (edges.size() != edges.parallelStream().distinct().count()) {
+			throw new InvalidGraphException("Graph has duplicated edges");
+		}
+		final List<V> verticesFromEdges = edges.stream()
+				.map(e -> Arrays.asList(e.getV1(), e.getV2()))
+				.reduce(new ArrayList<>(), ListUtils::union);
+		verticesFromEdges.removeAll(vertices);
+		if (!verticesFromEdges.isEmpty()) {
+			throw new InvalidGraphException("Graph has edges with unknown vertices");
+		}
+	}
 }

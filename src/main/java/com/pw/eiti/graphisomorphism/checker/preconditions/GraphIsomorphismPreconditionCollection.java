@@ -7,16 +7,16 @@ import com.pw.eiti.graphisomorphism.model.Graph;
 /**
  * Class used for checking preconditions of graph isomorhism.
  */
-public class GraphIsomorphismPreconditionCollection implements Predocndition {
+public class GraphIsomorphismPreconditionCollection implements Precondition {
 
-	private final Collection<Predocndition> preconditions;
+	private final Collection<Precondition> preconditions;
 
-	public GraphIsomorphismPreconditionCollection(final Collection<Predocndition> preconditions) {
+	public GraphIsomorphismPreconditionCollection(final Collection<Precondition> preconditions) {
 		this.preconditions = preconditions;
 	}
 
 	@Override
-	public boolean fullfils(final Graph a, final Graph b) {
+	public <V> boolean fullfils(final Graph<V> a, final Graph<V> b) {
 		return preconditions.stream().allMatch(p -> p.fullfils(a, b));
 	}
 }

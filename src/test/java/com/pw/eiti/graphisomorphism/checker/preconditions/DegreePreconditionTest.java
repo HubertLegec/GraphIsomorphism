@@ -28,8 +28,8 @@ public class DegreePreconditionTest {
 	@Test
 	public void testFullfils_success() throws Exception {
 		// given
-		final Graph graphA = mock(Graph.class);
-		final Graph graphB = mock(Graph.class);
+		final Graph<String> graphA = mock(Graph.class);
+		final Graph<String> graphB = mock(Graph.class);
 		final Map<String, VertexDegree> graphADegrees = ImmutableMap.of(
 				"a", getMockVertexDegree(1, 2),
 				"b", getMockVertexDegree(5, 10),
@@ -51,8 +51,8 @@ public class DegreePreconditionTest {
 	@Test
 	public void testFullfils_failure() throws Exception {
 		// given
-		final Graph graphA = mock(Graph.class);
-		final Graph graphB = mock(Graph.class);
+		final Graph<String> graphA = mock(Graph.class);
+		final Graph<String> graphB = mock(Graph.class);
 		final Map<String, VertexDegree> graphADegrees = ImmutableMap.of(
 				"a", getMockVertexDegree(1, 2),
 				"b", getMockVertexDegree(5, 10),
@@ -73,8 +73,8 @@ public class DegreePreconditionTest {
 
 	private VertexDegree getMockVertexDegree(final Integer in, final Integer out) {
 		final VertexDegree mockDegree = mock(VertexDegree.class);
-		when(mockDegree.getInDegree()).thenReturn(in);
-		when(mockDegree.getOutDegree()).thenReturn(out);
+		when(mockDegree.getInDeg()).thenReturn(in);
+		when(mockDegree.getOutDeg()).thenReturn(out);
 		return mockDegree;
 	}
 

@@ -18,19 +18,17 @@ public class DegreeCalculator {
 	 *            graph which vertices degrees are to be calculated
 	 * @return graph distribution
 	 */
-	public Map<String, VertexDegree> getDegrees(final Graph a) {
-		final Map<String, VertexDegree> map = new HashMap<>();
-		for (final Edge edge : a.getEdges()) {
+	public <V> Map<V, VertexDegree> getDegrees(final Graph<V> a) {
+		final Map<V, VertexDegree> map = new HashMap<>();
+		for (final Edge<V> edge : a.getEdges()) {
 			if (!map.containsKey(edge.getV1())) {
 				map.put(edge.getV1(), new VertexDegree());
 			}
 			if (!map.containsKey(edge.getV2())) {
 				map.put(edge.getV2(), new VertexDegree());
 			}
-			map.get(edge.getV1()).incrementOutDegree();
-			;
-			map.get(edge.getV2()).incrementInDegree();
-			;
+			map.get(edge.getV1()).incrementOutDeg();
+			map.get(edge.getV2()).incrementInDeg();
 		}
 		return map;
 	}

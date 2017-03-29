@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.naming.OperationNotSupportedException;
 
-import com.pw.eiti.graphisomorphism.checker.preconditions.Predocndition;
+import com.pw.eiti.graphisomorphism.checker.preconditions.Precondition;
 import com.pw.eiti.graphisomorphism.model.Graph;
 
 /**
@@ -14,14 +14,14 @@ import com.pw.eiti.graphisomorphism.model.Graph;
  */
 public class GraphIsomorphismChecker {
 
-	private final Predocndition precondition;
+	private final Precondition precondition;
 
 	/**
 	 * @param precondition
 	 *            precondition that has to be fullfiled for graphs to be
 	 *            isomorphic.
 	 */
-	public GraphIsomorphismChecker(final Predocndition precondition) {
+	public GraphIsomorphismChecker(final Precondition precondition) {
 		this.precondition = precondition;
 	}
 
@@ -37,13 +37,12 @@ public class GraphIsomorphismChecker {
 	 * @throws OperationNotSupportedException
 	 *             not yet implemented
 	 */
-	public List<GraphIsomorphismDefinition> getIsomorhism(final Collection<Graph> graphs)
-			throws OperationNotSupportedException {
-		final List<GraphIsomorphismDefinition> result = new ArrayList<>();
-		for (final Graph first : graphs)
-			for (final Graph second : graphs)
+	public <V> List<GraphIsomorphismDefinition<V>> getIsomorhism(final Collection<Graph<V>> graphs) {
+		final List<GraphIsomorphismDefinition<V>> result = new ArrayList<>();
+		for (final Graph<V> first : graphs)
+			for (final Graph<V> second : graphs)
 				if (first != second) {
-					final GraphIsomorphismDefinition isomorhism = getIsomorhism(first, second);
+					final GraphIsomorphismDefinition<V> isomorhism = getIsomorhism(first, second);
 					if (isomorhism == null) {
 						return null;
 					}
@@ -65,8 +64,10 @@ public class GraphIsomorphismChecker {
 	 * @throws OperationNotSupportedException
 	 *             not yet implemented
 	 */
-	public GraphIsomorphismDefinition getIsomorhism(final Graph first, final Graph second)
-			throws OperationNotSupportedException {
-		throw new OperationNotSupportedException();
+	public <V> GraphIsomorphismDefinition<V> getIsomorhism(final Graph<V> first, final Graph<V> second) {
+		if(precondition.fullfils(first, second)) {
+			return null;
+		}
+		return null;
 	}
 }

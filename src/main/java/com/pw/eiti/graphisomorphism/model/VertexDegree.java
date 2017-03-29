@@ -6,39 +6,39 @@ import com.google.common.base.Objects;
  * Degree of vertex in a directed graph.
  */
 public class VertexDegree {
-	private Integer incomingDegree = 0;
-	private Integer outgoingDegree = 0;
+	private Integer inDeg = 0;
+	private Integer outDeg = 0;
 
 	public VertexDegree() {
 	}
 
 	public VertexDegree(final Integer in, final Integer out) {
-		this.incomingDegree = in;
-		this.outgoingDegree = out;
+		this.inDeg = in;
+		this.outDeg = out;
 	}
 
-	public Integer getInDegree() {
-		return incomingDegree;
+	public Integer getInDeg() {
+		return inDeg;
 	}
 
-	public void setInDegree(final Integer incomingDegree) {
-		this.incomingDegree = incomingDegree;
+	public void setInDeg(final Integer incomingDegree) {
+		this.inDeg = incomingDegree;
 	}
 
-	public Integer getOutDegree() {
-		return outgoingDegree;
+	public Integer getOutDeg() {
+		return outDeg;
 	}
 
-	public void setOutDegree(final Integer outgoingDegree) {
-		this.outgoingDegree = outgoingDegree;
+	public void setOutDeg(final Integer outgoingDegree) {
+		this.outDeg = outgoingDegree;
 	}
 
-	public void incrementInDegree() {
-		incomingDegree++;
+	public void incrementInDeg() {
+		inDeg++;
 	}
 
-	public void incrementOutDegree() {
-		outgoingDegree++;
+	public void incrementOutDeg() {
+		outDeg++;
 	}
 
 	@Override
@@ -47,7 +47,12 @@ public class VertexDegree {
 			return false;
 		}
 		final VertexDegree that = (VertexDegree) obj;
-		return Objects.equal(this.incomingDegree, that.incomingDegree)
-				&& Objects.equal(this.outgoingDegree, that.outgoingDegree);
+		return Objects.equal(this.inDeg, that.inDeg)
+				&& Objects.equal(this.outDeg, that.outDeg);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(this.inDeg, this.outDeg);
 	}
 }
