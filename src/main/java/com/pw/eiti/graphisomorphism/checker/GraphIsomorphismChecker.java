@@ -6,12 +6,25 @@ import java.util.List;
 
 import javax.naming.OperationNotSupportedException;
 
+import com.pw.eiti.graphisomorphism.checker.preconditions.Predocndition;
 import com.pw.eiti.graphisomorphism.model.Graph;
 
 /**
  * Class responsible for checking if graphs are isomorphic.
  */
 public class GraphIsomorphismChecker {
+
+	private final Predocndition precondition;
+
+	/**
+	 * @param precondition
+	 *            precondition that has to be fullfiled for graphs to be
+	 *            isomorphic.
+	 */
+	public GraphIsomorphismChecker(final Predocndition precondition) {
+		this.precondition = precondition;
+	}
+
 	/**
 	 * Gets isomorhism reslations for a collection of graphs. Collection is
 	 * isomorhic only if all pairs of graphs are isomorphic.
