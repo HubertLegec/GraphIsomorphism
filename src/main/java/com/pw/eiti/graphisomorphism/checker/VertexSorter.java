@@ -1,11 +1,12 @@
-package com.pw.eiti.graphisomorphism.checker.reordering;
+package com.pw.eiti.graphisomorphism.checker;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Multimaps;
-import com.pw.eiti.graphisomorphism.checker.DegreeCalculator;
 import com.pw.eiti.graphisomorphism.model.Graph;
 import com.pw.eiti.graphisomorphism.model.VertexDegree;
 
@@ -24,17 +25,20 @@ public class VertexSorter {
 	 * possitble permutational assignments to other vertcies are first.
 	 *
 	 * @param g graph which verticles are to be sorted
+	 * @return sorted vertices list
 	 */
-	public <V> void sortVerticles(final Graph<V> g){
+	public <V> List<V> getSortedVerticles(final Graph<V> g){
 		final Map<V, VertexDegree> vertexToDegreeMap = degreeCalc.getDegrees(g);
 		final ArrayListMultimap<VertexDegree, V> degreeToVerticlesMultimap =
 				Multimaps.invertFrom(Multimaps.forMap(vertexToDegreeMap), ArrayListMultimap.create());
-		Collections.sort(g.getVertices(), (a, b) -> {
+		final List<V> vertices = Lists.newArrayList(g.getVertices());
+		Collections.sort(vertices, (a, b) -> {
 			final VertexDegree aDegree = vertexToDegreeMap.get(a);
 			final VertexDegree bDegree = vertexToDegreeMap.get(b);
 			final Integer aAssignmentsCount = degreeToVerticlesMultimap.get(aDegree).size();
 			final Integer bAssignmentsCount = degreeToVerticlesMultimap.get(bDegree).size();
 			return aAssignmentsCount.compareTo(bAssignmentsCount);
 		});
+		return vertices;
 	}
 }

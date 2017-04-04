@@ -19,7 +19,8 @@ public class GraphIsomorphismCheckerTest {
 	public void setUp() {
 		mockPrecondition = mock(Precondition.class);
 		when(mockPrecondition.fullfils(any(), any())).thenReturn(true);
-		checker = new GraphIsomorphismChecker(mockPrecondition);
+		final DFSPreOrderBuilder mockOrderedGraphBuilder = mock(DFSPreOrderBuilder.class);
+		checker = new GraphIsomorphismChecker(mockPrecondition, mockOrderedGraphBuilder);
 	}
 
 	@Test

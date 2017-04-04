@@ -3,6 +3,7 @@ package com.pw.eiti.graphisomorphism.checker;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.OperationNotSupportedException;
 
@@ -15,14 +16,17 @@ import com.pw.eiti.graphisomorphism.model.Graph;
 public class GraphIsomorphismChecker {
 
 	private final Precondition precondition;
+	private final DFSPreOrderBuilder dfsPreOrderBuilder;
 
 	/**
 	 * @param precondition
 	 *            precondition that has to be fullfiled for graphs to be
 	 *            isomorphic.
 	 */
-	public GraphIsomorphismChecker(final Precondition precondition) {
+	public GraphIsomorphismChecker(final Precondition precondition,
+			final DFSPreOrderBuilder dfsPreOrderBuilder) {
 		this.precondition = precondition;
+		this.dfsPreOrderBuilder = dfsPreOrderBuilder;
 	}
 
 	/**
@@ -68,6 +72,7 @@ public class GraphIsomorphismChecker {
 		if(precondition.fullfils(first, second)) {
 			return null;
 		}
+		final Map<V, Integer> dfsPreOrder = dfsPreOrderBuilder.getDFSPreOrder(first);
 		return null;
 	}
 }
