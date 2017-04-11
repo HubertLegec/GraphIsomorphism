@@ -10,6 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.pw.eiti.graphisomorphism.checker.preconditions.Precondition;
+import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatcher;
+import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatcherFactory;
+import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatching;
 import com.pw.eiti.graphisomorphism.model.Graph;
 
 public class GraphIsomorphismCheckerTest {
@@ -18,7 +21,7 @@ public class GraphIsomorphismCheckerTest {
 	private Graph mockDstGraph;
 	private Precondition mockPrecondition;
 	private GraphIsomorphismChecker checker;
-	private VertexMatcherBuilder mockMatcherBuilder;
+	private VertexMatcherFactory mockMatcherFactory;
 	private VertexMatcher mockMatcher;
 	private VertexMatching mockMatching;
 
@@ -27,17 +30,17 @@ public class GraphIsomorphismCheckerTest {
 		mockSrcGraph = mock(Graph.class);
 		mockDstGraph = mock(Graph.class);
 		mockPrecondition = mock(Precondition.class);
-		mockMatcherBuilder = mock(VertexMatcherBuilder.class);
+		mockMatcherFactory = mock(VertexMatcherFactory.class);
 		mockMatcher = mock(VertexMatcher.class);
 		mockMatching = mock(VertexMatching.class);
-		checker = new GraphIsomorphismChecker(mockPrecondition, mockMatcherBuilder);
+		checker = new GraphIsomorphismChecker(mockPrecondition, mockMatcherFactory);
 
 		setUpSuccessScenario();
 	}
 
 	private void setUpSuccessScenario() {
 		when(mockPrecondition.fullfils(mockSrcGraph, mockDstGraph)).thenReturn(true);
-		when(mockMatcherBuilder.getMatcherFor(mockSrcGraph)).thenReturn(mockMatcher);
+		when(mockMatcherFactory.getVertexMatcher(mockSrcGraph)).thenReturn(mockMatcher);
 		when(mockMatcher.getMatchingTo(mockDstGraph)).thenReturn(Optional.of(mockMatching));
 	}
 

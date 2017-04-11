@@ -1,10 +1,9 @@
-package com.pw.eiti.graphisomorphism.checker;
+package com.pw.eiti.graphisomorphism.checker.dfs;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
-import java.util.stream.Collectors;
 
 import com.google.common.collect.Maps;
 import com.pw.eiti.graphisomorphism.model.Graph;
@@ -19,7 +18,7 @@ public class DFSPreOrderBuilder {
 		this.sorter = sorter;
 	}
 
-	public Map<Integer, Integer> getDFSPreOrder(final Graph graph) {
+	public Map<Integer, Integer> getVertexToDFSPreOrder(final Graph graph) {
 		final List<Integer> sortedVerticles = sorter.getSortedVerticles(graph);
 		final Map<Integer, Integer> orderMap = Maps.newHashMap();
 		final Stack<Integer> verticesToProcess = new Stack<>();
@@ -49,12 +48,5 @@ public class DFSPreOrderBuilder {
 		for (final Integer neighbour : neighbours) {
 			verticesToProcess.push(neighbour);
 		}
-	}
-
-	public List<Integer> getVerticesSortedByPreOrder(final Graph graph) {
-		final Map<Integer, Integer> dfsPreOrder = getDFSPreOrder(graph);
-		return graph.getVertices().stream()
-				.sorted((a, b) -> dfsPreOrder.get(a).compareTo(dfsPreOrder.get(b)))
-				.collect(Collectors.toList());
 	}
 }

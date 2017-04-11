@@ -1,6 +1,5 @@
-package com.pw.eiti.graphisomorphism.checker;
+package com.pw.eiti.graphisomorphism.checker.vertexmatcher;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,10 +12,10 @@ import com.pw.eiti.graphisomorphism.model.Graph;
  * to other graph's vertices.
  */
 public class VertexMatcher {
-	private final ArrayList<VertexMatchRequirement> requirements;
+	private final List<VertexMatchRequirement> requirements;
 	private VertexMatching matching;
 
-	public VertexMatcher(final ArrayList<VertexMatchRequirement> requirements){
+	public VertexMatcher(final List<VertexMatchRequirement> requirements){
 		this.requirements = requirements;
 	}
 

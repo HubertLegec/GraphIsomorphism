@@ -1,4 +1,9 @@
-package com.pw.eiti.graphisomorphism.checker;
+package com.pw.eiti.graphisomorphism.checker.vertexmatcher;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.common.collect.Maps;
 
 /**
  * Class representing a matching of one graph's vertices to other
@@ -94,5 +99,13 @@ public class VertexMatching {
 	 */
 	public int getMatchedVerticesCount() {
 		return this.matchedVarticesCount;
+	}
+
+	public Map<Integer, Integer> getMatching() {
+		final HashMap<Integer, Integer> matching = Maps.newHashMap();
+		for(int i = 0; i < allVerticesCount; ++i) {
+			matching.put(i, srcToDstMatch[i]);
+		}
+		return matching;
 	}
 }

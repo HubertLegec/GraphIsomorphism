@@ -1,4 +1,4 @@
-package com.pw.eiti.graphisomorphism.checker;
+package com.pw.eiti.graphisomorphism.checker.vertexmatcher;
 
 import java.util.List;
 
@@ -8,6 +8,11 @@ public class VertexMatchRequirement {
 	private final Integer vertexToMatch;
 	private final List<Edge> edgesToMatch;
 
+	/**
+	 * @param vertexToMatch vertex to which this requirement should be applied
+	 * @param edgesToMatch edges which should exist for this requirement to be
+	 * 		fullfiled
+	 */
 	public VertexMatchRequirement(final Integer vertexToMatch, final List<Edge> edgesToMatch)
 	{
 		this.vertexToMatch = vertexToMatch;

@@ -1,4 +1,4 @@
-package com.pw.eiti.graphisomorphism.checker;
+package com.pw.eiti.graphisomorphism.checker.vertexmatcher;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

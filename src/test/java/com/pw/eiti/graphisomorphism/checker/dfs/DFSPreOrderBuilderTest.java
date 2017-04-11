@@ -1,4 +1,4 @@
-package com.pw.eiti.graphisomorphism.checker;
+package com.pw.eiti.graphisomorphism.checker.dfs;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.eq;
@@ -6,7 +6,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 import org.assertj.core.groups.Tuple;
@@ -29,7 +28,7 @@ public class DFSPreOrderBuilderTest {
 	}
 
 	private Graph setUpTestCase() {
-		//given
+		// given
 		final Graph mockGraph = mock(Graph.class);
 		when(mockSorter.getSortedVerticles(mockGraph)).thenReturn(Lists.newArrayList(0, 1, 2, 3));
 		when(mockGraph.getVertices()).thenReturn(Lists.newArrayList(0, 1, 2, 3));
@@ -41,27 +40,13 @@ public class DFSPreOrderBuilderTest {
 	}
 
 	@Test
-	public void testGetDFSPreOrder() throws Exception {
-		//given
+	public void testGetVertexToDFSPreOrder() throws Exception {
+		// given
 		final Graph mockGraph = setUpTestCase();
-		//when
-		final Map<Integer, Integer> dfsPreOrder = dfsGraphBuilder.getDFSPreOrder(mockGraph);
-		//then
-		assertThat(dfsPreOrder.entrySet())
-		.extracting("key", "value").containsOnly(
-				new Tuple(0, 0),
-				new Tuple(2, 1),
-				new Tuple(1, 2),
-				new Tuple(3, 3));
-	}
-
-	@Test
-	public void testGetVerticesSortedByPreOrder() throws Exception {
-		//given
-		final Graph mockGraph = setUpTestCase();
-		//when
-		final List<Integer> verticesSortedByPreOrder = dfsGraphBuilder.getVerticesSortedByPreOrder(mockGraph);
-		assertThat(verticesSortedByPreOrder)
-		.containsExactly(0, 2, 1, 3);
+		// when
+		final Map<Integer, Integer> dfsPreOrder = dfsGraphBuilder.getVertexToDFSPreOrder(mockGraph);
+		// then
+		assertThat(dfsPreOrder.entrySet()).extracting("key", "value").containsOnly(
+				new Tuple(0, 0), new Tuple(2, 1), new Tuple(1, 2), new Tuple(3, 3));
 	}
 }

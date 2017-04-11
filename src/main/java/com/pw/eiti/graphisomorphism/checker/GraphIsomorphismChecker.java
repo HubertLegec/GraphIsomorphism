@@ -1,13 +1,11 @@
 package com.pw.eiti.graphisomorphism.checker;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
-import javax.naming.OperationNotSupportedException;
-
 import com.pw.eiti.graphisomorphism.checker.preconditions.Precondition;
+import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatcher;
+import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatcherFactory;
+import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatching;
 import com.pw.eiti.graphisomorphism.model.Graph;
 
 /**
@@ -16,7 +14,7 @@ import com.pw.eiti.graphisomorphism.model.Graph;
 public class GraphIsomorphismChecker {
 
 	private final Precondition precondition;
-	private final VertexMatcherBuilder vertexMatcherBuilder;
+	private final VertexMatcherFactory vertexMatcherFactory;
 
 	/**
 	 * @param precondition
@@ -24,55 +22,23 @@ public class GraphIsomorphismChecker {
 	 *            isomorphic.
 	 */
 	public GraphIsomorphismChecker(final Precondition precondition,
-			final VertexMatcherBuilder vertexMatchiRequirementsBuilder) {
+			final VertexMatcherFactory vertexMatcherFactory) {
 		this.precondition = precondition;
-		this.vertexMatcherBuilder = vertexMatchiRequirementsBuilder;
-	}
-
-	/**
-	 * Gets isomorhism reslations for a collection of graphs. Collection is
-	 * isomorhic only if all pairs of graphs are isomorphic.
-	 *
-	 * @param graphs
-	 *            graphs for which isomorphism is to be checked
-	 * @return null if graphs are not isomorhic, or
-	 *         {@link GraphIsomorphismDefinition} for each pair of graphs if
-	 *         they are isomorhic.
-	 * @throws OperationNotSupportedException
-	 *             not yet implemented
-	 */
-	public Optional<List<VertexMatching>> getIsomorhism(final Collection<Graph> graphs) {
-		final List<VertexMatching> result = new ArrayList<>();
-		for (final Graph first : graphs)
-			for (final Graph second : graphs)
-				if (first != second) {
-					final Optional<VertexMatching> isomorhism = getIsomorhism(first, second);
-					if (!isomorhism.isPresent()) {
-						return Optional.empty();
-					}
-					result.add(isomorhism.get());
-				}
-		return Optional.of(result);
+		this.vertexMatcherFactory = vertexMatcherFactory;
 	}
 
 	/**
 	 * Gets isomorhic relation for two graphs.
 	 *
-	 * @param first
-	 *            first graph for isomorhic relation
-	 * @param second
-	 *            second graph for isomorhic relation
-	 * @return null if graphs are not isomorhic, or
-	 *         {@link GraphIsomorphismDefinition} for graphs if they are
-	 *         isomorhic.
-	 * @throws OperationNotSupportedException
-	 *             not yet implemented
+	 * @param first first graph for isomorhic relation
+	 * @param second second graph for isomorhic relation
+	 * @return empty id graphs are not isomorphic, or vertex matching if they are
 	 */
 	public Optional<VertexMatching> getIsomorhism(final Graph first, final Graph second) {
 		if (!precondition.fullfils(first, second)) {
 			return Optional.empty();
 		}
-		final VertexMatcher matcher = vertexMatcherBuilder.getMatcherFor(first);
+		final VertexMatcher matcher = vertexMatcherFactory.getVertexMatcher(first);
 		return matcher.getMatchingTo(second);
 	}
 }
