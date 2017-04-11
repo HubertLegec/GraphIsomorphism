@@ -3,7 +3,7 @@ package com.pw.eiti.graphisomorphism.checker;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 import javax.naming.OperationNotSupportedException;
 
@@ -16,7 +16,7 @@ import com.pw.eiti.graphisomorphism.model.Graph;
 public class GraphIsomorphismChecker {
 
 	private final Precondition precondition;
-	private final DFSPreOrderBuilder dfsPreOrderBuilder;
+	private final VertexMatcherBuilder vertexMatcherBuilder;
 
 	/**
 	 * @param precondition
@@ -24,9 +24,9 @@ public class GraphIsomorphismChecker {
 	 *            isomorphic.
 	 */
 	public GraphIsomorphismChecker(final Precondition precondition,
-			final DFSPreOrderBuilder dfsPreOrderBuilder) {
+			final VertexMatcherBuilder vertexMatchiRequirementsBuilder) {
 		this.precondition = precondition;
-		this.dfsPreOrderBuilder = dfsPreOrderBuilder;
+		this.vertexMatcherBuilder = vertexMatchiRequirementsBuilder;
 	}
 
 	/**
@@ -41,18 +41,18 @@ public class GraphIsomorphismChecker {
 	 * @throws OperationNotSupportedException
 	 *             not yet implemented
 	 */
-	public List<GraphIsomorphismDefinition> getIsomorhism(final Collection<Graph> graphs) {
-		final List<GraphIsomorphismDefinition> result = new ArrayList<>();
+	public Optional<List<VertexMatching>> getIsomorhism(final Collection<Graph> graphs) {
+		final List<VertexMatching> result = new ArrayList<>();
 		for (final Graph first : graphs)
 			for (final Graph second : graphs)
 				if (first != second) {
-					final GraphIsomorphismDefinition isomorhism = getIsomorhism(first, second);
-					if (isomorhism == null) {
-						return null;
+					final Optional<VertexMatching> isomorhism = getIsomorhism(first, second);
+					if (!isomorhism.isPresent()) {
+						return Optional.empty();
 					}
-					result.add(isomorhism);
+					result.add(isomorhism.get());
 				}
-		return result;
+		return Optional.of(result);
 	}
 
 	/**
@@ -68,11 +68,11 @@ public class GraphIsomorphismChecker {
 	 * @throws OperationNotSupportedException
 	 *             not yet implemented
 	 */
-	public  GraphIsomorphismDefinition getIsomorhism(final Graph first, final Graph second) {
-		if(precondition.fullfils(first, second)) {
-			return null;
+	public Optional<VertexMatching> getIsomorhism(final Graph first, final Graph second) {
+		if (!precondition.fullfils(first, second)) {
+			return Optional.empty();
 		}
-		final Map<Integer, Integer> dfsPreOrder = dfsPreOrderBuilder.getDFSPreOrder(first);
-		return null;
+		final VertexMatcher matcher = vertexMatcherBuilder.getMatcherFor(first);
+		return matcher.getMatchingTo(second);
 	}
 }

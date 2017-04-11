@@ -1,5 +1,6 @@
 package com.pw.eiti.graphisomorphism.model;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -56,5 +57,13 @@ public class Graph {
 
 	public List<Integer> getVertices() {
 		return IntStream.range(0, this.verticesCount).boxed().collect(Collectors.toList());
+	}
+
+	public boolean containsEdge(final Edge edge) {
+		return this.incidenceMartix[edge.getV1()][edge.getV2()] == true;
+	}
+
+	public boolean containsAllEdges(final Collection<Edge> edges) {
+		return edges.stream().allMatch(this::containsEdge);
 	}
 }
