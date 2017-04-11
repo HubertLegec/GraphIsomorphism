@@ -5,17 +5,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import com.google.gson.Gson;
 import com.pw.eiti.graphisomorphism.model.Graph;
 
 public class InputFileParser {
 
-	public static List<Graph<String>> parse(final String path) throws IOException, InvalidGraphException {
+	public static List<Graph> parse(final String path) throws IOException, InvalidGraphException {
 		final String jsonString = readFileAsString(path);
-		final Graph<String>[] graphs = new Gson().fromJson(jsonString, Graph[].class);
-		Stream.of(graphs).forEach(Graph::validate);
+		final Graph[] graphs = new Gson().fromJson(jsonString, Graph[].class);
 		return Arrays.asList(graphs);
 	}
 

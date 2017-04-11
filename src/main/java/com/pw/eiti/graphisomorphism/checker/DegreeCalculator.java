@@ -18,9 +18,9 @@ public class DegreeCalculator {
 	 *            graph which vertices degrees are to be calculated
 	 * @return graph distribution
 	 */
-	public <V> Map<V, VertexDegree> getDegrees(final Graph<V> a) {
-		final Map<V, VertexDegree> map = new HashMap<>();
-		for (final Edge<V> edge : a.getEdges()) {
+	public Map<Integer, VertexDegree> getDegrees(final Graph a) {
+		final Map<Integer, VertexDegree> map = new HashMap<>();
+		for (final Edge edge : a.getEdges()) {
 			if (!map.containsKey(edge.getV1())) {
 				map.put(edge.getV1(), new VertexDegree());
 			}

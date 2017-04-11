@@ -28,7 +28,7 @@ public class GraphIsomorphismCheckerTest {
 		//given
 		when(mockPrecondition.fullfils(any(), any())).thenReturn(false);
 		//when
-		final GraphIsomorphismDefinition<String> isomorhism = checker.getIsomorhism(null, null);
+		final GraphIsomorphismDefinition isomorhism = checker.getIsomorhism(null, null);
 		//then
 		assertThat(isomorhism).isNull();
 	}

@@ -28,18 +28,18 @@ public class DegreePreconditionTest {
 	@Test
 	public void testFullfils_success() throws Exception {
 		// given
-		final Graph<String> graphA = mock(Graph.class);
-		final Graph<String> graphB = mock(Graph.class);
-		final Map<String, VertexDegree> graphADegrees = ImmutableMap.of(
-				"a", getMockVertexDegree(1, 2),
-				"b", getMockVertexDegree(5, 10),
-				"c", getMockVertexDegree(5, 10),
-				"d", getMockVertexDegree(100, 100));
-		final Map<String, VertexDegree> graphBDegrees = ImmutableMap.of(
-				"z", getMockVertexDegree(1, 2),
-				"x", getMockVertexDegree(5, 10),
-				"f", getMockVertexDegree(5, 10),
-				"g", getMockVertexDegree(100, 100));
+		final Graph graphA = mock(Graph.class);
+		final Graph graphB = mock(Graph.class);
+		final Map<Integer, VertexDegree> graphADegrees = ImmutableMap.of(
+				0, getMockVertexDegree(1, 2),
+				1, getMockVertexDegree(5, 10),
+				2, getMockVertexDegree(5, 10),
+				3, getMockVertexDegree(100, 100));
+		final Map<Integer, VertexDegree> graphBDegrees = ImmutableMap.of(
+				0, getMockVertexDegree(1, 2),
+				1, getMockVertexDegree(5, 10),
+				2, getMockVertexDegree(5, 10),
+				3, getMockVertexDegree(100, 100));
 		when(mockDegreCalc.getDegrees(graphA)).thenReturn(graphADegrees);
 		when(mockDegreCalc.getDegrees(graphB)).thenReturn(graphBDegrees);
 		// when
@@ -51,18 +51,18 @@ public class DegreePreconditionTest {
 	@Test
 	public void testFullfils_failure() throws Exception {
 		// given
-		final Graph<String> graphA = mock(Graph.class);
-		final Graph<String> graphB = mock(Graph.class);
-		final Map<String, VertexDegree> graphADegrees = ImmutableMap.of(
-				"a", getMockVertexDegree(1, 2),
-				"b", getMockVertexDegree(5, 10),
-				"c", getMockVertexDegree(5, 10),
-				"d", getMockVertexDegree(100, 100));
-		final Map<String, VertexDegree> graphBDegrees = ImmutableMap.of(
-				"z", getMockVertexDegree(1, 2),
-				"x", getMockVertexDegree(5, 10),
-				"f", getMockVertexDegree(5, 10),
-				"g", getMockVertexDegree(5, 10));
+		final Graph graphA = mock(Graph.class);
+		final Graph graphB = mock(Graph.class);
+		final Map<Integer, VertexDegree> graphADegrees = ImmutableMap.of(
+				0, getMockVertexDegree(1, 2),
+				1, getMockVertexDegree(5, 10),
+				2, getMockVertexDegree(5, 10),
+				3, getMockVertexDegree(100, 100));
+		final Map<Integer, VertexDegree> graphBDegrees = ImmutableMap.of(
+				0, getMockVertexDegree(1, 2),
+				1, getMockVertexDegree(5, 10),
+				2, getMockVertexDegree(5, 10),
+				3, getMockVertexDegree(5, 10));
 		when(mockDegreCalc.getDegrees(graphA)).thenReturn(graphADegrees);
 		when(mockDegreCalc.getDegrees(graphB)).thenReturn(graphBDegrees);
 		// when

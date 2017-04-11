@@ -18,11 +18,11 @@ public class DFSPreOrderBuilder {
 		this.sorter = sorter;
 	}
 
-	public <V> Map<V, Integer> getDFSPreOrder(final Graph<V> graph) {
-		final List<V> sortedVerticles = sorter.getSortedVerticles(graph);
-		final Map<V, Integer> orderMap = Maps.newHashMap();
-		final Stack<V> verticesToProcess = new Stack<>();
-		for (final V v : sortedVerticles) {
+	public Map<Integer, Integer> getDFSPreOrder(final Graph graph) {
+		final List<Integer> sortedVerticles = sorter.getSortedVerticles(graph);
+		final Map<Integer, Integer> orderMap = Maps.newHashMap();
+		final Stack<Integer> verticesToProcess = new Stack<>();
+		for (final Integer v : sortedVerticles) {
 			if (!orderMap.containsKey(v)) {
 				verticesToProcess.add(v);
 				processVertices(graph, orderMap, verticesToProcess);
@@ -31,21 +31,21 @@ public class DFSPreOrderBuilder {
 		return orderMap;
 	}
 
-	private <V> void processVertices(final Graph<V> graph, final Map<V, Integer> orderMap,
-			final Stack<V> verticesToProcess) {
+	private void processVertices(final Graph graph, final Map<Integer, Integer> orderMap,
+			final Stack<Integer> verticesToProcess) {
 		while (!verticesToProcess.isEmpty()) {
-			final V currentV = verticesToProcess.pop();
+			final Integer currentV = verticesToProcess.pop();
 			if (!orderMap.containsKey(currentV)) {
 				processVertex(graph, orderMap, verticesToProcess, currentV);
 			}
 		}
 	}
 
-	private <V> void processVertex(final Graph<V> graph, final Map<V, Integer> orderMap, final Stack<V> verticesToProcess,
-			final V currentV) {
+	private void processVertex(final Graph graph, final Map<Integer, Integer> orderMap, final Stack<Integer> verticesToProcess,
+			final Integer currentV) {
 		orderMap.put(currentV, orderMap.size());
-		final Set<V> neighbours = graph.getNeighbours(currentV);
-		for (final V neighbour : neighbours) {
+		final Set<Integer> neighbours = graph.getNeighbours(currentV);
+		for (final Integer neighbour : neighbours) {
 			verticesToProcess.push(neighbour);
 		}
 	}

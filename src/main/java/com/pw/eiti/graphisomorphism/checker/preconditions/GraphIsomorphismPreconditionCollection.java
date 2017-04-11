@@ -16,7 +16,7 @@ public class GraphIsomorphismPreconditionCollection implements Precondition {
 	}
 
 	@Override
-	public <V> boolean fullfils(final Graph<V> a, final Graph<V> b) {
+	public boolean fullfils(final Graph a, final Graph b) {
 		return preconditions.stream().allMatch(p -> p.fullfils(a, b));
 	}
 }

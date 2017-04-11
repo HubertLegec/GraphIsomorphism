@@ -14,7 +14,6 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.pw.eiti.graphisomorphism.checker.DFSPreOrderBuilder;
 import com.pw.eiti.graphisomorphism.model.Graph;
 
 public class DFSPreOrderBuilderTest {
@@ -32,20 +31,20 @@ public class DFSPreOrderBuilderTest {
 	@Test
 	public void testGetDFSPreOrder() throws Exception {
 		//given
-		final Graph<Character> mockGraph = mock(Graph.class);
-		when(mockSorter.getSortedVerticles(mockGraph)).thenReturn(Lists.newArrayList('a', 'b', 'c', 'd'));
-		when(mockGraph.getNeighbours(eq('a'))).thenReturn(Sets.newHashSet('c'));
-		when(mockGraph.getNeighbours(eq('b'))).thenReturn(Sets.newHashSet('d'));
-		when(mockGraph.getNeighbours(eq('c'))).thenReturn(Collections.emptySet());
-		when(mockGraph.getNeighbours(eq('d'))).thenReturn(Sets.newHashSet('a'));
+		final Graph mockGraph = mock(Graph.class);
+		when(mockSorter.getSortedVerticles(mockGraph)).thenReturn(Lists.newArrayList(0, 1, 2, 3));
+		when(mockGraph.getNeighbours(eq(0))).thenReturn(Sets.newHashSet(2));
+		when(mockGraph.getNeighbours(eq(1))).thenReturn(Sets.newHashSet(3));
+		when(mockGraph.getNeighbours(eq(2))).thenReturn(Collections.emptySet());
+		when(mockGraph.getNeighbours(eq(3))).thenReturn(Sets.newHashSet(0));
 		//when
-		final Map<Character, Integer> dfsPreOrder = dfsGraphBuilder.getDFSPreOrder(mockGraph);
+		final Map<Integer, Integer> dfsPreOrder = dfsGraphBuilder.getDFSPreOrder(mockGraph);
 		//then
 		assertThat(dfsPreOrder.entrySet())
-		.extracting("key", "value").containsExactly(
-				new Tuple('a', 0),
-				new Tuple('c', 1),
-				new Tuple('b', 2),
-				new Tuple('d', 3));
+		.extracting("key", "value").containsOnly(
+				new Tuple(0, 0),
+				new Tuple(2, 1),
+				new Tuple(1, 2),
+				new Tuple(3, 3));
 	}
 }

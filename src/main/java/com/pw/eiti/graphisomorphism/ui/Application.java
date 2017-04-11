@@ -12,7 +12,7 @@ public class Application {
 		}
 		final String path = args[0];
 		try {
-			final List<Graph<String>> graphs = InputFileParser.parse(path);
+			final List<Graph> graphs = InputFileParser.parse(path);
 			//TODO - process graphs
 		} catch (final IOException e) {
 			e.printStackTrace();

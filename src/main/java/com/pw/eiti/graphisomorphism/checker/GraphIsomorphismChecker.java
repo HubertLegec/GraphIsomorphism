@@ -41,12 +41,12 @@ public class GraphIsomorphismChecker {
 	 * @throws OperationNotSupportedException
 	 *             not yet implemented
 	 */
-	public <V> List<GraphIsomorphismDefinition<V>> getIsomorhism(final Collection<Graph<V>> graphs) {
-		final List<GraphIsomorphismDefinition<V>> result = new ArrayList<>();
-		for (final Graph<V> first : graphs)
-			for (final Graph<V> second : graphs)
+	public List<GraphIsomorphismDefinition> getIsomorhism(final Collection<Graph> graphs) {
+		final List<GraphIsomorphismDefinition> result = new ArrayList<>();
+		for (final Graph first : graphs)
+			for (final Graph second : graphs)
 				if (first != second) {
-					final GraphIsomorphismDefinition<V> isomorhism = getIsomorhism(first, second);
+					final GraphIsomorphismDefinition isomorhism = getIsomorhism(first, second);
 					if (isomorhism == null) {
 						return null;
 					}
@@ -68,11 +68,11 @@ public class GraphIsomorphismChecker {
 	 * @throws OperationNotSupportedException
 	 *             not yet implemented
 	 */
-	public <V> GraphIsomorphismDefinition<V> getIsomorhism(final Graph<V> first, final Graph<V> second) {
+	public  GraphIsomorphismDefinition getIsomorhism(final Graph first, final Graph second) {
 		if(precondition.fullfils(first, second)) {
 			return null;
 		}
-		final Map<V, Integer> dfsPreOrder = dfsPreOrderBuilder.getDFSPreOrder(first);
+		final Map<Integer, Integer> dfsPreOrder = dfsPreOrderBuilder.getDFSPreOrder(first);
 		return null;
 	}
 }

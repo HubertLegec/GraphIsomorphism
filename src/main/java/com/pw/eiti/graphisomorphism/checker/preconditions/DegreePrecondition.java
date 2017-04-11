@@ -15,9 +15,9 @@ public class DegreePrecondition implements Precondition {
 	}
 
 	@Override
-	public <V> boolean fullfils(final Graph<V> a, final Graph<V> b) {
-		final Map<V, VertexDegree> aDist = degreeCalc.getDegrees(a);
-		final Map<V, VertexDegree> bDist = degreeCalc.getDegrees(b);
+	public boolean fullfils(final Graph a, final Graph b) {
+		final Map<Integer, VertexDegree> aDist = degreeCalc.getDegrees(a);
+		final Map<Integer, VertexDegree> bDist = degreeCalc.getDegrees(b);
 		final HashMultiset<VertexDegree> aDegreeDist = HashMultiset.create();
 		final HashMultiset<VertexDegree> bDegreeDist = HashMultiset.create();
 		aDegreeDist.addAll(aDist.values());

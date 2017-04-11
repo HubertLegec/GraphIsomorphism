@@ -4,23 +4,21 @@ import java.util.Objects;
 
 /**
  * Edge that joins two vertices.
- *
- * @param <V> Type of vertices that are joined by edge.
  */
-public class Edge<V> {
-	private final V v1;
-	private final V v2;
+public class Edge {
+	private final Integer v1;
+	private final Integer v2;
 
-	public Edge(final V v1, final V v2) {
+	public Edge(final Integer v1, final Integer v2) {
 		this.v1 = v1;
 		this.v2 = v2;
 	}
 
-	public V getV1() {
+	public Integer getV1() {
 		return v1;
 	}
 
-	public V getV2() {
+	public Integer getV2() {
 		return v2;
 	}
 
@@ -35,7 +33,7 @@ public class Edge<V> {
 		if (!(obj instanceof Edge)) {
 			return false;
 		}
-		final Edge<V> other = (Edge<V>) obj;
+		final Edge other = (Edge) obj;
 		return v1.equals(other.v1) && v2.equals(other.v2);
 	}
 

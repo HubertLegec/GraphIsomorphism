@@ -27,27 +27,27 @@ public class DegreeCalculatorTest {
 	@Test
 	public void testGetDegrees() throws Exception {
 		//given
-		final Graph<String> mockGraph = mock(Graph.class);
-		final List<Edge<String>> mockEdges = Arrays.asList(
-				getMockEdge("a", "b"),
-				getMockEdge("a", "c"),
-				getMockEdge("a", "d"),
-				getMockEdge("b", "c"),
-				getMockEdge("b", "d")
+		final Graph mockGraph = mock(Graph.class);
+		final List<Edge> mockEdges = Arrays.asList(
+				getMockEdge(0, 1),
+				getMockEdge(0, 2),
+				getMockEdge(0, 3),
+				getMockEdge(1, 2),
+				getMockEdge(1, 3)
 				);
 		when(mockGraph.getEdges()).thenReturn(mockEdges);
 		//when
-		final Map<String, VertexDegree> degrees = degreeCalc.getDegrees(mockGraph);
+		final Map<Integer, VertexDegree> degrees = degreeCalc.getDegrees(mockGraph);
 		//then
 		assertThat(degrees.keySet().size()).isEqualTo(4);
-		assertThat(degrees.get("a")).isEqualTo(new VertexDegree(0, 3));
-		assertThat(degrees.get("b")).isEqualTo(new VertexDegree(1, 2));
-		assertThat(degrees.get("c")).isEqualTo(new VertexDegree(2, 0));
-		assertThat(degrees.get("d")).isEqualTo(new VertexDegree(2, 0));
+		assertThat(degrees.get(0)).isEqualTo(new VertexDegree(0, 3));
+		assertThat(degrees.get(1)).isEqualTo(new VertexDegree(1, 2));
+		assertThat(degrees.get(2)).isEqualTo(new VertexDegree(2, 0));
+		assertThat(degrees.get(3)).isEqualTo(new VertexDegree(2, 0));
 	}
 
-	private Edge<String> getMockEdge(final String start, final String end) {
-		final Edge<String> mockEdge = mock(Edge.class);
+	private Edge getMockEdge(final Integer start, final Integer end) {
+		final Edge mockEdge = mock(Edge.class);
 		when(mockEdge.getV1()).thenReturn(start);
 		when(mockEdge.getV2()).thenReturn(end);
 		return mockEdge;

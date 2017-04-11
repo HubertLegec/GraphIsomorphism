@@ -27,11 +27,11 @@ public class VertexSorter {
 	 * @param g graph which verticles are to be sorted
 	 * @return sorted vertices list
 	 */
-	public <V> List<V> getSortedVerticles(final Graph<V> g){
-		final Map<V, VertexDegree> vertexToDegreeMap = degreeCalc.getDegrees(g);
-		final ArrayListMultimap<VertexDegree, V> degreeToVerticlesMultimap =
+	public List<Integer> getSortedVerticles(final Graph g){
+		final Map<Integer, VertexDegree> vertexToDegreeMap = degreeCalc.getDegrees(g);
+		final ArrayListMultimap<VertexDegree, Integer> degreeToVerticlesMultimap =
 				Multimaps.invertFrom(Multimaps.forMap(vertexToDegreeMap), ArrayListMultimap.create());
-		final List<V> vertices = Lists.newArrayList(g.getVertices());
+		final List<Integer> vertices = Lists.newArrayList(g.getVertices());
 		Collections.sort(vertices, (a, b) -> {
 			final VertexDegree aDegree = vertexToDegreeMap.get(a);
 			final VertexDegree bDegree = vertexToDegreeMap.get(b);
