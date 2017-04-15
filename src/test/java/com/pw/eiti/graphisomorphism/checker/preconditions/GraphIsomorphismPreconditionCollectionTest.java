@@ -21,7 +21,7 @@ public class GraphIsomorphismPreconditionCollectionTest {
 						getMockPrecondition(true)
 				));
 		// when
-		final boolean fullfils = preconditionCollection.fullfils(null, null);
+		final boolean fullfils = preconditionCollection.fulfills(null, null);
 		// then
 		assertThat(fullfils).isTrue();
 	}
@@ -36,14 +36,14 @@ public class GraphIsomorphismPreconditionCollectionTest {
 						getMockPrecondition(false), getMockPrecondition(true)
 				));
 		// when
-		final boolean fullfils = preconditionCollection.fullfils(null, null);
+		final boolean fullfils = preconditionCollection.fulfills(null, null);
 		// then
 		assertThat(fullfils).isFalse();
 	}
 
 	private Precondition getMockPrecondition(final boolean isFullfiled) {
 		final Precondition mockPrecond = mock(Precondition.class);
-		when(mockPrecond.fullfils(any(), any())).thenReturn(isFullfiled);
+		when(mockPrecond.fulfills(any(), any())).thenReturn(isFullfiled);
 		return mockPrecond;
 	}
 

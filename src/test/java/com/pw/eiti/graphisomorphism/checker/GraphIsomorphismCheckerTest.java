@@ -39,7 +39,7 @@ public class GraphIsomorphismCheckerTest {
 	}
 
 	private void setUpSuccessScenario() {
-		when(mockPrecondition.fullfils(mockSrcGraph, mockDstGraph)).thenReturn(true);
+		when(mockPrecondition.fulfills(mockSrcGraph, mockDstGraph)).thenReturn(true);
 		when(mockMatcherFactory.getVertexMatcher(mockSrcGraph)).thenReturn(mockMatcher);
 		when(mockMatcher.getMatchingTo(mockDstGraph)).thenReturn(Optional.of(mockMatching));
 	}
@@ -47,7 +47,7 @@ public class GraphIsomorphismCheckerTest {
 	@Test
 	public void testGetIsomorhismGraphGraph_successScenario_returnsMatchingFromMatcher() throws Exception {
 		//given when
-		final Optional<VertexMatching> optionalMatching = checker.getIsomorhism(mockSrcGraph, mockDstGraph);
+		final Optional<VertexMatching> optionalMatching = checker.getIsomorphism(mockSrcGraph, mockDstGraph);
 		//then
 		assertThat(optionalMatching.isPresent()).isTrue();
 		assertThat(optionalMatching.get()).isEqualTo(mockMatching);
@@ -56,9 +56,9 @@ public class GraphIsomorphismCheckerTest {
 	@Test
 	public void testGetIsomorhismGraphGraph_checksPreconditions() throws Exception {
 		//given
-		when(mockPrecondition.fullfils(mockSrcGraph, mockDstGraph)).thenReturn(false);
+		when(mockPrecondition.fulfills(mockSrcGraph, mockDstGraph)).thenReturn(false);
 		//when
-		final Optional<VertexMatching> vertexMatching = checker.getIsomorhism(mockSrcGraph, mockDstGraph);
+		final Optional<VertexMatching> vertexMatching = checker.getIsomorphism(mockSrcGraph, mockDstGraph);
 		//then
 		assertThat(vertexMatching.isPresent()).isFalse();
 	}

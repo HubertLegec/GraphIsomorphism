@@ -1,8 +1,8 @@
 package com.pw.eiti.graphisomorphism.checker.vertexmatcher;
 
-import java.util.List;
-
 import com.pw.eiti.graphisomorphism.model.Graph;
+
+import java.util.List;
 
 public class VertexMatcherFactory {
 	private final VertexMatchRequirementsFactory requirementsFactory;

@@ -43,7 +43,7 @@ public class DegreePreconditionTest {
 		when(mockDegreCalc.getDegrees(graphA)).thenReturn(graphADegrees);
 		when(mockDegreCalc.getDegrees(graphB)).thenReturn(graphBDegrees);
 		// when
-		final boolean fullfiled = degreePrecondition.fullfils(graphA, graphA);
+		final boolean fullfiled = degreePrecondition.fulfills(graphA, graphA);
 		// then
 		assertThat(fullfiled).isTrue();
 	}
@@ -66,7 +66,7 @@ public class DegreePreconditionTest {
 		when(mockDegreCalc.getDegrees(graphA)).thenReturn(graphADegrees);
 		when(mockDegreCalc.getDegrees(graphB)).thenReturn(graphBDegrees);
 		// when
-		final boolean fullfiled = degreePrecondition.fullfils(graphA, graphB);
+		final boolean fullfiled = degreePrecondition.fulfills(graphA, graphB);
 		// then
 		assertThat(fullfiled).isFalse();
 	}

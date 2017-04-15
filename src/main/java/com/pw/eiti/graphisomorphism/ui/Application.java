@@ -33,7 +33,7 @@ public class Application {
 				return;
 			}
 			final GraphIsomorphismChecker checker = setUpDependenciesAndGetChecker();
-			final Optional<VertexMatching> isomorhism = checker.getIsomorhism(graphs.get(0), graphs.get(1));
+			final Optional<VertexMatching> isomorhism = checker.getIsomorphism(graphs.get(0), graphs.get(1));
 			if(!isomorhism.isPresent()) {
 				System.out.println("Graphs are not isomorphic");
 				return;
@@ -44,13 +44,13 @@ public class Application {
 	}
 
 	private static GraphIsomorphismChecker setUpDependenciesAndGetChecker() {
-		final DegreeCalculator degreCalc = new DegreeCalculator();
+		final DegreeCalculator degreeCalc = new DegreeCalculator();
 		final Precondition precondition =
 				new GraphIsomorphismPreconditionCollection(Lists.newArrayList(
-						new DegreePrecondition(degreCalc),
+						new DegreePrecondition(degreeCalc),
 						new EdgesCountPrecondition(),
 						new VerticesCountPrecondition()));
-		final VertexSorter sorter = new VertexSorter(degreCalc);
+		final VertexSorter sorter = new VertexSorter(degreeCalc);
 		final DFSPreOrderBuilder dfsPreOrderBuilder = new DFSPreOrderBuilder(sorter);
 		final VertexMatchRequirementsFactory requirementsFactory = new VertexMatchRequirementsFactory(dfsPreOrderBuilder);
 		final VertexMatcherFactory vertexMatcherFactory = new VertexMatcherFactory(requirementsFactory);

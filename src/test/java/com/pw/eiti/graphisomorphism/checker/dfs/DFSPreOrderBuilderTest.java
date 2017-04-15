@@ -30,7 +30,7 @@ public class DFSPreOrderBuilderTest {
 	private Graph setUpTestCase() {
 		// given
 		final Graph mockGraph = mock(Graph.class);
-		when(mockSorter.getSortedVerticles(mockGraph)).thenReturn(Lists.newArrayList(0, 1, 2, 3));
+		when(mockSorter.getSortedVertices(mockGraph)).thenReturn(Lists.newArrayList(0, 1, 2, 3));
 		when(mockGraph.getVertices()).thenReturn(Lists.newArrayList(0, 1, 2, 3));
 		when(mockGraph.getNeighbours(eq(0))).thenReturn(Sets.newHashSet(2));
 		when(mockGraph.getNeighbours(eq(1))).thenReturn(Sets.newHashSet(3));

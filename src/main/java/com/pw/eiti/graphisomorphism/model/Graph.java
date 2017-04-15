@@ -1,8 +1,6 @@
 package com.pw.eiti.graphisomorphism.model;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -13,7 +11,7 @@ public class Graph {
 	private Integer verticesCount;
 	private List<Edge> edges;
 	private HashMultimap<Integer, Integer> neighbourList;
-	private Boolean[][] incidenceMartix;
+	private Boolean[][] incidenceMatrix;
 
 	public int getVerticesCount() {
 		return this.verticesCount;
@@ -37,18 +35,17 @@ public class Graph {
 
 	public void setEdges(final List<Edge> edges) {
 		this.edges = edges;
-		this.incidenceMartix = new Boolean[this.verticesCount][];
+		this.incidenceMatrix = new Boolean[this.verticesCount][];
 		for(int i = 0; i < this.verticesCount; ++i) {
-			this.incidenceMartix[i] = new Boolean[this.verticesCount];
-			for(int j = 0; j <this.verticesCount; ++j){
-				this.incidenceMartix[i][j] = false;
-			}
+			this.incidenceMatrix[i] = Collections
+                    .nCopies(this.verticesCount, false)
+                    .toArray(new Boolean[0]);
 		}
 		this.neighbourList = HashMultimap.create();
-		for(final Edge edge : edges){
-			this.incidenceMartix[edge.getV1()][edge.getV2()] = true;
-			this.neighbourList.put(edge.getV1(), edge.getV2());
-		}
+		edges.forEach(edge -> {
+            this.incidenceMatrix[edge.getV1()][edge.getV2()] = true;
+            this.neighbourList.put(edge.getV1(), edge.getV2());
+        });
 	}
 
 	public Set<Integer> getNeighbours(final Integer v) {
@@ -56,14 +53,19 @@ public class Graph {
 	}
 
 	public List<Integer> getVertices() {
-		return IntStream.range(0, this.verticesCount).boxed().collect(Collectors.toList());
+		return IntStream
+				.range(0, this.verticesCount)
+				.boxed()
+				.collect(Collectors.toList());
 	}
 
 	public boolean containsEdge(final Edge edge) {
-		return this.incidenceMartix[edge.getV1()][edge.getV2()] == true;
+		return this.incidenceMatrix[edge.getV1()][edge.getV2()];
 	}
 
 	public boolean containsAllEdges(final Collection<Edge> edges) {
-		return edges.stream().allMatch(this::containsEdge);
+		return edges
+				.stream()
+				.allMatch(this::containsEdge);
 	}
 }

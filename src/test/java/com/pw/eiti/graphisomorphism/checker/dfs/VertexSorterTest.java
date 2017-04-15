@@ -13,7 +13,6 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.pw.eiti.graphisomorphism.checker.DegreeCalculator;
-import com.pw.eiti.graphisomorphism.checker.dfs.VertexSorter;
 import com.pw.eiti.graphisomorphism.model.Graph;
 import com.pw.eiti.graphisomorphism.model.VertexDegree;
 
@@ -35,15 +34,15 @@ public class VertexSorterTest {
 		final List<Integer> vertcies = Lists.newArrayList(0, 1, 2, 3, 4, 5);
 		when(g.getVertices()).thenReturn(vertcies);
 		final Map<Integer, VertexDegree> degreeMap = Maps.newHashMap();
-		degreeMap.put(5, new VertexDegree(10, 10)); //nie mo¿na dopasowaæ - 0
-		degreeMap.put(4, new VertexDegree(5, 5)); //mo¿na dopasowaæ z d - 1
-		degreeMap.put(3, new VertexDegree(5, 5)); //mo¿na dopasowaæ z e - 1
-		degreeMap.put(2, new VertexDegree(1, 2)); //mo¿na dopasowaæ z b i a - 2
-		degreeMap.put(1, new VertexDegree(1, 2)); //mo¿na dopasowaæ z a i c - 2
-		degreeMap.put(0, new VertexDegree(1, 2)); //mo¿na dopasowaæ z b i c - 2
+		degreeMap.put(5, new VertexDegree(10, 10)); //nie moï¿½na dopasowaï¿½ - 0
+		degreeMap.put(4, new VertexDegree(5, 5)); //moï¿½na dopasowaï¿½ z d - 1
+		degreeMap.put(3, new VertexDegree(5, 5)); //moï¿½na dopasowaï¿½ z e - 1
+		degreeMap.put(2, new VertexDegree(1, 2)); //moï¿½na dopasowaï¿½ z b i a - 2
+		degreeMap.put(1, new VertexDegree(1, 2)); //moï¿½na dopasowaï¿½ z a i c - 2
+		degreeMap.put(0, new VertexDegree(1, 2)); //moï¿½na dopasowaï¿½ z b i c - 2
 		when(mockDegreeCalc.getDegrees(g)).thenReturn(degreeMap);
 		//when
-		final List<Integer> sortedVerticles = sorter.getSortedVerticles(g);
+		final List<Integer> sortedVerticles = sorter.getSortedVertices(g);
 		//then
 		assertThat(sortedVerticles).containsExactly(5, 3, 4, 0, 1, 2);
 	}

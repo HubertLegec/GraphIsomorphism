@@ -28,7 +28,7 @@ public class EdgesCountPreconditionTest {
 		when(graphA.getEdges()).thenReturn(Lists.newArrayList(new Edge(1, 2)));
 		when(graphB.getEdges()).thenReturn(Lists.newArrayList(new Edge(7, 5)));
 		// when
-		final boolean fullfils = edgesCountPrecondition.fullfils(graphA, graphB);
+		final boolean fullfils = edgesCountPrecondition.fulfills(graphA, graphB);
 		// then
 		assertThat(fullfils).isTrue();
 	}
@@ -41,7 +41,7 @@ public class EdgesCountPreconditionTest {
 		when(graphA.getEdges()).thenReturn(Lists.newArrayList(new Edge(1, 2), new Edge(4,  3)));
 		when(graphB.getEdges()).thenReturn(Lists.newArrayList(new Edge(7, 5)));
 		// when
-		final boolean fullfils = edgesCountPrecondition.fullfils(graphA, graphB);
+		final boolean fullfils = edgesCountPrecondition.fulfills(graphA, graphB);
 		// then
 		assertThat(fullfils).isFalse();
 	}

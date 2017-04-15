@@ -1,16 +1,18 @@
 package com.pw.eiti.graphisomorphism.checker.vertexmatcher;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.IntStream;
 
-import com.google.common.collect.Maps;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * Class representing a matching of one graph's vertices to other
  * graph's vertices.
  */
 public class VertexMatching {
-	private int matchedVarticesCount;
+	private int matchedVerticesCount;
 	private final int allVerticesCount;
 	private final Integer[] srcToDstMatch;
 	private final Integer[] dstToSrcMatch;
@@ -22,22 +24,20 @@ public class VertexMatching {
 	 * @param verticesCount count of vertices for graphs
 	 * which vertices matching will be described
 	 */
-	public VertexMatching(final int verticesCount) {
+	VertexMatching(final int verticesCount) {
 		this.allVerticesCount = verticesCount;
-		this.matchedVarticesCount = 0;
-		this.srcToDstMatch = new Integer[this.allVerticesCount];
-		this.dstToSrcMatch = new Integer[this.allVerticesCount];
-		for(int i = 0; i < this.allVerticesCount; ++i) {
-			this.srcToDstMatch[i] = null;
-			this.dstToSrcMatch[i] = null;
-		}
+		this.matchedVerticesCount = 0;
+		this.srcToDstMatch = Collections.nCopies(this.allVerticesCount, null)
+				.toArray(new Integer[0]);
+		this.dstToSrcMatch = Collections.nCopies(this.allVerticesCount, null)
+				.toArray(new Integer[0]);
 	}
 
 	/**
 	 * has all vertices been matched?
 	 */
-	public boolean isComplete() {
-		return allVerticesCount == matchedVarticesCount;
+	boolean isComplete() {
+		return allVerticesCount == matchedVerticesCount;
 	}
 
 	/**
@@ -46,9 +46,9 @@ public class VertexMatching {
 	 * @param vSrc source graph vertex
 	 * @param vDst destination graph vertex
 	 */
-	public void add(final int vSrc, final int vDst) {
+	void add(final int vSrc, final int vDst) {
 		if(srcToDstMatch[vSrc] == null) {
-			this.matchedVarticesCount++;
+			this.matchedVerticesCount++;
 		}
 		srcToDstMatch[vSrc] = vDst;
 		dstToSrcMatch[vDst] = vSrc;
@@ -59,10 +59,10 @@ public class VertexMatching {
 	 *
 	 * @param vSrc source graph vertex
 	 */
-	public void remove(final int vSrc) {
+	void remove(final int vSrc) {
 		final Integer vDst = srcToDstMatch[vSrc];
 		if(vDst != null) {
-			this.matchedVarticesCount--;
+			this.matchedVerticesCount--;
 			dstToSrcMatch[vDst] = null;
 			srcToDstMatch[vSrc] = null;
 		}
@@ -77,7 +77,7 @@ public class VertexMatching {
 	 * @return destination graph vertex matched with given
 	 * 		source graph vertex
 	 */
-	public Integer getDstBySrc(final int vSrc) {
+	Integer getDstBySrc(final int vSrc) {
 		return srcToDstMatch[vSrc];
 	}
 
@@ -85,27 +85,25 @@ public class VertexMatching {
 	 * Get source graph vertex which is matched with given
 	 * destination graph vertex.
 	 *
-	 * @param vSrc destination graph vertex for which source
+	 * @param vDst destination graph vertex for which source
 	 * 		graph vertex will be returned
 	 * @return source graph vertex matched with given
 	 * 		destination graph vertex
 	 */
-	public Integer getSrcByDst(final int vDst) {
+	Integer getSrcByDst(final int vDst) {
 		return dstToSrcMatch[vDst];
 	}
 
 	/**
 	 * @return count of vertices currently matched
 	 */
-	public int getMatchedVerticesCount() {
-		return this.matchedVarticesCount;
+	int getMatchedVerticesCount() {
+		return this.matchedVerticesCount;
 	}
 
 	public Map<Integer, Integer> getMatching() {
-		final HashMap<Integer, Integer> matching = Maps.newHashMap();
-		for(int i = 0; i < allVerticesCount; ++i) {
-			matching.put(i, srcToDstMatch[i]);
-		}
-		return matching;
+		return IntStream.range(0, allVerticesCount)
+				.boxed()
+				.collect(toMap(Function.identity(), i -> srcToDstMatch[i]));
 	}
 }

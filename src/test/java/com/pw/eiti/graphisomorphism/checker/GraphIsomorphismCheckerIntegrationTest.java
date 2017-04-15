@@ -56,7 +56,7 @@ public class GraphIsomorphismCheckerIntegrationTest {
 		final Graph second = getGraph(2, ImmutableMultimap.of());
 		final Graph first = getGraph(2, ImmutableMultimap.of());
 		//when
-		final Optional<VertexMatching> isomorhism = checker.getIsomorhism(first, second);
+		final Optional<VertexMatching> isomorhism = checker.getIsomorphism(first, second);
 		//then
 		assertThat(isomorhism.isPresent()).isTrue();
 		assertThat(isomorhism.get().getMatching().entrySet()).containsAll(ImmutableMap.of(
@@ -70,7 +70,7 @@ public class GraphIsomorphismCheckerIntegrationTest {
 		final Graph second = getGraph(1, ImmutableMultimap.of());
 		final Graph first = getGraph(2, ImmutableMultimap.of());
 		//when
-		final Optional<VertexMatching> isomorhism = checker.getIsomorhism(first, second);
+		final Optional<VertexMatching> isomorhism = checker.getIsomorphism(first, second);
 		//then
 		assertThat(isomorhism.isPresent()).isFalse();
 	}
@@ -81,7 +81,7 @@ public class GraphIsomorphismCheckerIntegrationTest {
 		final Graph second = getGraph(2, ImmutableMultimap.of());
 		final Graph first = getGraph(2, ImmutableMultimap.of(0, 1));
 		//when
-		final Optional<VertexMatching> isomorhism = checker.getIsomorhism(first, second);
+		final Optional<VertexMatching> isomorhism = checker.getIsomorphism(first, second);
 		//then
 		assertThat(isomorhism.isPresent()).isFalse();
 	}
@@ -92,7 +92,7 @@ public class GraphIsomorphismCheckerIntegrationTest {
 		final Graph second = getGraph(2, ImmutableMultimap.of(1, 0));
 		final Graph first = getGraph(2, ImmutableMultimap.of(0, 1));
 		//when
-		final Optional<VertexMatching> isomorhism = checker.getIsomorhism(first, second);
+		final Optional<VertexMatching> isomorhism = checker.getIsomorphism(first, second);
 		//then
 		assertThat(isomorhism.isPresent()).isTrue();
 		assertThat(isomorhism.get().getMatching().entrySet()).containsAll(ImmutableMultimap.of(
@@ -106,7 +106,7 @@ public class GraphIsomorphismCheckerIntegrationTest {
 		final Graph second = getGraph(3, ImmutableMultimap.of(0, 1, 0, 2));
 		final Graph first = getGraph(3, ImmutableMultimap.of(2, 0, 2, 1));
 		//when
-		final Optional<VertexMatching> isomorhism = checker.getIsomorhism(first, second);
+		final Optional<VertexMatching> isomorhism = checker.getIsomorphism(first, second);
 		//then
 		assertThat(isomorhism.isPresent()).isTrue();
 		assertThat(isomorhism.get().getMatching().entrySet()).containsAll(ImmutableMultimap.of(
@@ -121,7 +121,7 @@ public class GraphIsomorphismCheckerIntegrationTest {
 		final Graph second = getGraph(3, ImmutableMultimap.of(1, 0, 2, 0));
 		final Graph first = getGraph(3, ImmutableMultimap.of(0, 1, 0, 2));
 		//when
-		final Optional<VertexMatching> isomorhism = checker.getIsomorhism(first, second);
+		final Optional<VertexMatching> isomorhism = checker.getIsomorphism(first, second);
 		//then
 		assertThat(isomorhism.isPresent()).isFalse();
 	}
@@ -132,7 +132,7 @@ public class GraphIsomorphismCheckerIntegrationTest {
 		final Graph second = getGraph(4, ImmutableMultimap.of(0, 1, 1, 2, 2, 3, 3, 0, 1, 0));
 		final Graph first = getGraph(4, ImmutableMultimap.of(0, 3, 3, 2, 2, 1, 1, 0, 3, 0));
 		//when
-		final Optional<VertexMatching> isomorhism = checker.getIsomorhism(first, second);
+		final Optional<VertexMatching> isomorhism = checker.getIsomorphism(first, second);
 		//then
 		assertThat(isomorhism.isPresent()).isTrue();
 		assertThat(isomorhism.get().getMatching().entrySet()).containsAll(ImmutableMultimap.of(
@@ -148,7 +148,7 @@ public class GraphIsomorphismCheckerIntegrationTest {
 		final Graph second = getGraph(4, ImmutableMultimap.of(0, 1, 1, 2, 2, 3, 3, 0, 1, 0));
 		final Graph first = getGraph(4, ImmutableMultimap.of(0, 3, 3, 2, 2, 1, 1, 0, 2, 0));
 		//when
-		final Optional<VertexMatching> isomorhism = checker.getIsomorhism(first, second);
+		final Optional<VertexMatching> isomorhism = checker.getIsomorphism(first, second);
 		//then
 		assertThat(isomorhism.isPresent()).isFalse();
 	}

@@ -26,7 +26,7 @@ public class VerticesCountPreconditionTest {
 		when(graphA.getVerticesCount()).thenReturn(11);
 		when(graphB.getVerticesCount()).thenReturn(11);
 		// when
-		final boolean fullfils = verticesCountPrecondition.fullfils(graphA, graphB);
+		final boolean fullfils = verticesCountPrecondition.fulfills(graphA, graphB);
 		// then
 		assertThat(fullfils).isTrue();
 	}
@@ -39,7 +39,7 @@ public class VerticesCountPreconditionTest {
 		when(graphA.getVerticesCount()).thenReturn(11);
 		when(graphB.getVerticesCount()).thenReturn(12);
 		// when
-		final boolean fullfils = verticesCountPrecondition.fullfils(graphA, graphB);
+		final boolean fullfils = verticesCountPrecondition.fulfills(graphA, graphB);
 		// then
 		assertThat(fullfils).isFalse();
 	}
