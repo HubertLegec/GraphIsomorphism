@@ -2,7 +2,6 @@ package com.pw.eiti.graphisomorphism.checker;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,14 +12,6 @@ import org.junit.Test;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.pw.eiti.graphisomorphism.checker.dfs.DFSPreOrderBuilder;
-import com.pw.eiti.graphisomorphism.checker.preconditions.DegreePrecondition;
-import com.pw.eiti.graphisomorphism.checker.preconditions.EdgesCountPrecondition;
-import com.pw.eiti.graphisomorphism.checker.preconditions.GraphIsomorphismPreconditionCollection;
-import com.pw.eiti.graphisomorphism.checker.preconditions.Precondition;
-import com.pw.eiti.graphisomorphism.checker.preconditions.VerticesCountPrecondition;
-import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatchRequirementsFactory;
-import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatcherFactory;
 import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatching;
 import com.pw.eiti.graphisomorphism.model.Edge;
 import com.pw.eiti.graphisomorphism.model.Graph;
@@ -30,17 +21,7 @@ public class GraphIsomorphismCheckerIntegrationTest {
 
     @Before
     public void setUp() {
-        final Precondition precondition = new GraphIsomorphismPreconditionCollection(
-                Arrays.asList(
-                        new DegreePrecondition(),
-                        new EdgesCountPrecondition(),
-                        new VerticesCountPrecondition()
-                ));
-        final DFSPreOrderBuilder dfsPreOrderBuilder = new DFSPreOrderBuilder();
-        final VertexMatchRequirementsFactory requirementsFactory =
-                new VertexMatchRequirementsFactory(dfsPreOrderBuilder);
-        final VertexMatcherFactory vertexMatcherFactory = new VertexMatcherFactory(requirementsFactory);
-        checker = new GraphIsomorphismChecker(precondition, vertexMatcherFactory);
+        checker = GraphIsomorphismChecker.createDefaultChecker();
     }
 
     private Graph getGraph(final int vCount, final Multimap<Integer, Integer> edges) {

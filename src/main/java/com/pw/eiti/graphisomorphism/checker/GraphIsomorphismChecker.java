@@ -1,10 +1,13 @@
 package com.pw.eiti.graphisomorphism.checker;
 
-import com.pw.eiti.graphisomorphism.checker.preconditions.Precondition;
+import com.pw.eiti.graphisomorphism.checker.dfs.DFSPreOrderBuilder;
+import com.pw.eiti.graphisomorphism.checker.preconditions.*;
+import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatchRequirementsFactory;
 import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatcherFactory;
 import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatching;
 import com.pw.eiti.graphisomorphism.model.Graph;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -40,5 +43,23 @@ public class GraphIsomorphismChecker {
 				.map(matcher -> matcher.getMatchingTo(second))
 				.filter(Optional::isPresent)
 				.map(Optional::get);
+	}
+
+	/**
+	 * Creates instance of {@link GraphIsomorphismChecker} with default configuration
+	 * @return checker instance
+	 */
+	public static GraphIsomorphismChecker createDefaultChecker() {
+		final Precondition precondition = new GraphIsomorphismPreconditionCollection(
+				Arrays.asList(
+						new DegreePrecondition(),
+						new EdgesCountPrecondition(),
+						new VerticesCountPrecondition()
+				));
+		final DFSPreOrderBuilder dfsPreOrderBuilder = new DFSPreOrderBuilder();
+		final VertexMatchRequirementsFactory requirementsFactory =
+				new VertexMatchRequirementsFactory(dfsPreOrderBuilder);
+		final VertexMatcherFactory vertexMatcherFactory = new VertexMatcherFactory(requirementsFactory);
+		return new GraphIsomorphismChecker(precondition, vertexMatcherFactory);
 	}
 }

@@ -104,6 +104,6 @@ public class VertexMatching {
 	public Map<Integer, Integer> getMatching() {
 		return IntStream.range(0, allVerticesCount)
 				.boxed()
-				.collect(toMap(Function.identity(), i -> srcToDstMatch[i]));
+				.collect(toMap(Function.identity(), this::getDstBySrc));
 	}
 }

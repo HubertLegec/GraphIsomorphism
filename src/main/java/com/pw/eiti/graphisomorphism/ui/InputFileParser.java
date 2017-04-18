@@ -9,9 +9,23 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.pw.eiti.graphisomorphism.model.Graph;
 
-public class InputFileParser {
+class InputFileParser {
 
-	public static List<Graph> parse(final String path) throws IOException, InvalidGraphException {
+    /**
+     * There is no need to create instance of this class
+     */
+    private InputFileParser() {
+    }
+
+    /**
+     * Opens file with given path, parses its content and returns it as a list of {@link Graph} class instances.
+     * Given file should contains a list of JSON representations of {@link Graph} class
+     * @param path path to file with list of graphs in JSON format
+     * @return list of graphs
+     * @throws IOException when file doesn't exist or can't be opened
+     * @throws InvalidGraphException when {@link Graph} JSON is invalid
+     */
+    static List<Graph> parse(final String path) throws IOException, InvalidGraphException {
 		final String jsonString = readFileAsString(path);
 		final Graph[] graphs = new Gson().fromJson(jsonString, Graph[].class);
 		return Arrays.asList(graphs);

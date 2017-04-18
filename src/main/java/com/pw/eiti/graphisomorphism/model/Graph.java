@@ -49,6 +49,20 @@ public class Graph {
         });
 	}
 
+	public void reload() {
+		this.incidenceMatrix = new Boolean[this.verticesCount][];
+		for(int i = 0; i < this.verticesCount; ++i) {
+			this.incidenceMatrix[i] = Collections
+					.nCopies(this.verticesCount, false)
+					.toArray(new Boolean[0]);
+		}
+		this.neighbourList = HashMultimap.create();
+		edges.forEach(edge -> {
+			this.incidenceMatrix[edge.getV1()][edge.getV2()] = true;
+			this.neighbourList.put(edge.getV1(), edge.getV2());
+		});
+	}
+
 	public Set<Integer> getNeighbours(final Integer v) {
 		return this.neighbourList.get(v);
 	}
