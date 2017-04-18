@@ -15,12 +15,12 @@ import static java.util.stream.Collectors.toList;
 /**
  * Class used for sorting vertices in a graph.
  */
-public class VertexSorter {
-    private final DegreeCalculator degreeCalc;
+class VertexSorter {
 
-    public VertexSorter(final DegreeCalculator degreeCalc) {
-        this.degreeCalc = degreeCalc;
-    }
+    /**
+     * There is no need to create instance of this class
+     */
+    private VertexSorter() {}
 
     /**
      * Sorts graph vertices so that vertices with lower number of
@@ -29,8 +29,8 @@ public class VertexSorter {
      * @param g graph which vertices are to be sorted
      * @return sorted vertices list
      */
-    public List<Integer> getSortedVertices(final Graph g) {
-        final Map<Integer, VertexDegree> vertexToDegreeMap = degreeCalc.getDegrees(g);
+    static List<Integer> getSortedVertices(final Graph g) {
+        final Map<Integer, VertexDegree> vertexToDegreeMap = DegreeCalculator.getDegrees(g);
         final Multimap<VertexDegree, Integer> degreeToVerticesMultimap =
                 Multimaps.invertFrom(Multimaps.forMap(vertexToDegreeMap), ArrayListMultimap.create());
         return g.getVertices()
@@ -38,9 +38,9 @@ public class VertexSorter {
                 .sorted((a, b) -> {
                     final VertexDegree aDegree = vertexToDegreeMap.get(a);
                     final VertexDegree bDegree = vertexToDegreeMap.get(b);
-                    final Integer aAssignmentsCount = degreeToVerticesMultimap.get(aDegree).size();
-                    final Integer bAssignmentsCount = degreeToVerticesMultimap.get(bDegree).size();
-                    return aAssignmentsCount.compareTo(bAssignmentsCount);
+                    final int aAssignmentsCount = degreeToVerticesMultimap.get(aDegree).size();
+                    final int bAssignmentsCount = degreeToVerticesMultimap.get(bDegree).size();
+                    return Integer.compare(aAssignmentsCount, bAssignmentsCount);
                 }).collect(toList());
     }
 }

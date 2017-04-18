@@ -6,31 +6,15 @@ import com.google.common.base.Objects;
  * Degree of vertex in a directed graph.
  */
 public class VertexDegree {
-	private Integer inDeg = 0;
-	private Integer outDeg = 0;
+	private int inDeg = 0;
+	private int outDeg = 0;
 
 	public VertexDegree() {
 	}
 
-	public VertexDegree(final Integer in, final Integer out) {
+	public VertexDegree(final int in, final int out) {
 		this.inDeg = in;
 		this.outDeg = out;
-	}
-
-	public Integer getInDeg() {
-		return inDeg;
-	}
-
-	public void setInDeg(final Integer incomingDegree) {
-		this.inDeg = incomingDegree;
-	}
-
-	public Integer getOutDeg() {
-		return outDeg;
-	}
-
-	public void setOutDeg(final Integer outgoingDegree) {
-		this.outDeg = outgoingDegree;
 	}
 
 	public void incrementInDeg() {

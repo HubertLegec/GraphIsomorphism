@@ -1,10 +1,11 @@
 package com.pw.eiti.graphisomorphism.model;
 
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.google.common.collect.HashMultimap;
+
+import static java.util.stream.Collectors.toList;
 
 public class Graph {
 	private String name;
@@ -56,7 +57,7 @@ public class Graph {
 		return IntStream
 				.range(0, this.verticesCount)
 				.boxed()
-				.collect(Collectors.toList());
+				.collect(toList());
 	}
 
 	public boolean containsEdge(final Edge edge) {

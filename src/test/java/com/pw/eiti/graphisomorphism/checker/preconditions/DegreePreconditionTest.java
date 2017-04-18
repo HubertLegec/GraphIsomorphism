@@ -4,8 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.pw.eiti.graphisomorphism.model.Edge;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,69 +16,75 @@ import com.google.common.collect.ImmutableMap;
 import com.pw.eiti.graphisomorphism.checker.DegreeCalculator;
 import com.pw.eiti.graphisomorphism.model.Graph;
 import com.pw.eiti.graphisomorphism.model.VertexDegree;
+import sun.security.provider.certpath.Vertex;
 
 public class DegreePreconditionTest {
-
-	private DegreeCalculator mockDegreCalc;
 	private DegreePrecondition degreePrecondition;
 
 	@Before
 	public void setUp() {
-		mockDegreCalc = mock(DegreeCalculator.class);
-		degreePrecondition = new DegreePrecondition(mockDegreCalc);
+		degreePrecondition = new DegreePrecondition();
 	}
 
 	@Test
-	public void testFullfils_success() throws Exception {
+	public void testFulfills_success() {
 		// given
-		final Graph graphA = mock(Graph.class);
-		final Graph graphB = mock(Graph.class);
-		final Map<Integer, VertexDegree> graphADegrees = ImmutableMap.of(
-				0, getMockVertexDegree(1, 2),
-				1, getMockVertexDegree(5, 10),
-				2, getMockVertexDegree(5, 10),
-				3, getMockVertexDegree(100, 100));
-		final Map<Integer, VertexDegree> graphBDegrees = ImmutableMap.of(
-				0, getMockVertexDegree(1, 2),
-				1, getMockVertexDegree(5, 10),
-				2, getMockVertexDegree(5, 10),
-				3, getMockVertexDegree(100, 100));
-		when(mockDegreCalc.getDegrees(graphA)).thenReturn(graphADegrees);
-		when(mockDegreCalc.getDegrees(graphB)).thenReturn(graphBDegrees);
+		final Graph graphA = getGraphA();
+		final Graph graphB = getGraphB();
 		// when
-		final boolean fullfiled = degreePrecondition.fulfills(graphA, graphA);
+		final boolean fulfilled = degreePrecondition.fulfills(graphA, graphB);
 		// then
-		assertThat(fullfiled).isTrue();
+		assertThat(fulfilled).isTrue();
 	}
 
 	@Test
-	public void testFullfils_failure() throws Exception {
+	public void testFulfills_failure() {
 		// given
-		final Graph graphA = mock(Graph.class);
-		final Graph graphB = mock(Graph.class);
-		final Map<Integer, VertexDegree> graphADegrees = ImmutableMap.of(
-				0, getMockVertexDegree(1, 2),
-				1, getMockVertexDegree(5, 10),
-				2, getMockVertexDegree(5, 10),
-				3, getMockVertexDegree(100, 100));
-		final Map<Integer, VertexDegree> graphBDegrees = ImmutableMap.of(
-				0, getMockVertexDegree(1, 2),
-				1, getMockVertexDegree(5, 10),
-				2, getMockVertexDegree(5, 10),
-				3, getMockVertexDegree(5, 10));
-		when(mockDegreCalc.getDegrees(graphA)).thenReturn(graphADegrees);
-		when(mockDegreCalc.getDegrees(graphB)).thenReturn(graphBDegrees);
+		final Graph graphA = getGraphA();
+		final Graph graphC = getGraphC();
 		// when
-		final boolean fullfiled = degreePrecondition.fulfills(graphA, graphB);
+		final boolean fulfilled = degreePrecondition.fulfills(graphA, graphC);
 		// then
-		assertThat(fullfiled).isFalse();
+		assertThat(fulfilled).isFalse();
 	}
 
-	private VertexDegree getMockVertexDegree(final Integer in, final Integer out) {
-		final VertexDegree mockDegree = mock(VertexDegree.class);
-		when(mockDegree.getInDeg()).thenReturn(in);
-		when(mockDegree.getOutDeg()).thenReturn(out);
-		return mockDegree;
+	private static Graph getGraphA() {
+		Graph g = new Graph();
+		g.setVerticesCount(4);
+		List<Edge> edges = Arrays.asList(
+				new Edge(0, 1),
+				new Edge(1, 2),
+				new Edge(2, 3),
+				new Edge(3, 1)
+		);
+		g.setEdges(edges);
+		return g;
+	}
+
+	private static Graph getGraphB() {
+		Graph g = new Graph();
+		g.setVerticesCount(4);
+		List<Edge> edges = Arrays.asList(
+				new Edge(0, 1),
+				new Edge(1, 2),
+				new Edge(2, 3),
+				new Edge(3, 2)
+		);
+		g.setEdges(edges);
+		return g;
+	}
+
+	private static Graph getGraphC() {
+		Graph g = new Graph();
+		g.setVerticesCount(4);
+		List<Edge> edges = Arrays.asList(
+				new Edge(0, 1),
+				new Edge(1, 2),
+				new Edge(2, 3),
+				new Edge(3, 0)
+		);
+		g.setEdges(edges);
+		return g;
 	}
 
 }

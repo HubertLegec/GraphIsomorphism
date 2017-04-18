@@ -45,7 +45,7 @@ public class GraphIsomorphismCheckerTest {
 	}
 
 	@Test
-	public void testGetIsomorhismGraphGraph_successScenario_returnsMatchingFromMatcher() throws Exception {
+	public void testGetIsomorphismGraphGraph_successScenario_returnsMatchingFromMatcher() throws Exception {
 		//given when
 		final Optional<VertexMatching> optionalMatching = checker.getIsomorphism(mockSrcGraph, mockDstGraph);
 		//then
@@ -54,7 +54,7 @@ public class GraphIsomorphismCheckerTest {
 	}
 
 	@Test
-	public void testGetIsomorhismGraphGraph_checksPreconditions() throws Exception {
+	public void testGetIsomorphismGraphGraph_checksPreconditions() throws Exception {
 		//given
 		when(mockPrecondition.fulfills(mockSrcGraph, mockDstGraph)).thenReturn(false);
 		//when

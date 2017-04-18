@@ -11,13 +11,19 @@ import java.util.Optional;
  * Class used for calculating degree distribution of graph
  */
 public class DegreeCalculator {
+
+    /**
+     * There is no need to create instance of this class
+     */
+    private DegreeCalculator() {}
+
     /**
      * Gets a map of vertex labels to their degree value.
      *
      * @param a graph which vertices degrees are to be calculated
      * @return graph distribution
      */
-    public Map<Integer, VertexDegree> getDegrees(final Graph a) {
+    public static Map<Integer, VertexDegree> getDegrees(final Graph a) {
         final Map<Integer, VertexDegree> map = new HashMap<>();
         a.getEdges().forEach(edge -> {
             Optional.ofNullable(map.get(edge.getV1()))

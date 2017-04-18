@@ -1,49 +1,59 @@
 package com.pw.eiti.graphisomorphism.checker.dfs;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
-import org.junit.Before;
+import com.pw.eiti.graphisomorphism.model.Edge;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.pw.eiti.graphisomorphism.checker.DegreeCalculator;
 import com.pw.eiti.graphisomorphism.model.Graph;
-import com.pw.eiti.graphisomorphism.model.VertexDegree;
 
 public class VertexSorterTest {
 
-	private DegreeCalculator mockDegreeCalc;
-	private VertexSorter sorter;
+    @Test
+    public void testGetSortedVertices() throws Exception {
+        //given
+        final Graph g = getGraph();
+        //when
+        final List<Integer> sortedVertices = VertexSorter.getSortedVertices(g);
+        //then
+        assertThat(sortedVertices).containsExactly(5, 3, 4, 0, 1, 2);
+    }
 
-	@Before
-	public void setUp() {
-		mockDegreeCalc = mock(DegreeCalculator.class);
-		sorter = new VertexSorter(mockDegreeCalc);
-	}
-
-	@Test
-	public void testGetSortedVerticles() throws Exception {
-		//given
-		final Graph g = mock(Graph.class);
-		final List<Integer> vertcies = Lists.newArrayList(0, 1, 2, 3, 4, 5);
-		when(g.getVertices()).thenReturn(vertcies);
-		final Map<Integer, VertexDegree> degreeMap = Maps.newHashMap();
-		degreeMap.put(5, new VertexDegree(10, 10)); //nie mo�na dopasowa� - 0
-		degreeMap.put(4, new VertexDegree(5, 5)); //mo�na dopasowa� z d - 1
-		degreeMap.put(3, new VertexDegree(5, 5)); //mo�na dopasowa� z e - 1
-		degreeMap.put(2, new VertexDegree(1, 2)); //mo�na dopasowa� z b i a - 2
-		degreeMap.put(1, new VertexDegree(1, 2)); //mo�na dopasowa� z a i c - 2
-		degreeMap.put(0, new VertexDegree(1, 2)); //mo�na dopasowa� z b i c - 2
-		when(mockDegreeCalc.getDegrees(g)).thenReturn(degreeMap);
-		//when
-		final List<Integer> sortedVerticles = sorter.getSortedVertices(g);
-		//then
-		assertThat(sortedVerticles).containsExactly(5, 3, 4, 0, 1, 2);
-	}
+    private Graph getGraph() {
+        Graph g = new Graph();
+        g.setVerticesCount(6);
+        /**
+         * Vertices degrees:
+         * 0 - 2 out i 2 in
+         * 1 - 2 out i 2 in
+         * 2 - 2 out i 2 in
+         * 3 - 4 out i 4 in
+         * 4 - 4 out i 4 in
+         * 5 - 3 out i 3 in
+         */
+        List<Edge> edges = Arrays.asList(
+                new Edge(0, 4),
+                new Edge(1, 4),
+                new Edge(2, 4),
+                new Edge(3, 4),
+                new Edge(4, 0),
+                new Edge(4, 1),
+                new Edge(4, 2),
+                new Edge(4, 3),
+                new Edge(0, 3),
+                new Edge(1, 3),
+                new Edge(3, 0),
+                new Edge(3, 1),
+                new Edge(2, 5),
+                new Edge(5, 3),
+                new Edge(3,5),
+                new Edge(5, 2),
+                new Edge(5, 5)
+        );
+        g.setEdges(edges);
+        return g;
+    }
 }

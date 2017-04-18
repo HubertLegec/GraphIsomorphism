@@ -1,14 +1,12 @@
 package com.pw.eiti.graphisomorphism.ui;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import com.google.common.collect.Lists;
-import com.pw.eiti.graphisomorphism.checker.DegreeCalculator;
 import com.pw.eiti.graphisomorphism.checker.GraphIsomorphismChecker;
 import com.pw.eiti.graphisomorphism.checker.dfs.DFSPreOrderBuilder;
-import com.pw.eiti.graphisomorphism.checker.dfs.VertexSorter;
 import com.pw.eiti.graphisomorphism.checker.preconditions.DegreePrecondition;
 import com.pw.eiti.graphisomorphism.checker.preconditions.EdgesCountPrecondition;
 import com.pw.eiti.graphisomorphism.checker.preconditions.GraphIsomorphismPreconditionCollection;
@@ -33,10 +31,9 @@ public class Application {
 				return;
 			}
 			final GraphIsomorphismChecker checker = setUpDependenciesAndGetChecker();
-			final Optional<VertexMatching> isomorhism = checker.getIsomorphism(graphs.get(0), graphs.get(1));
-			if(!isomorhism.isPresent()) {
+			final Optional<VertexMatching> isomorphism = checker.getIsomorphism(graphs.get(0), graphs.get(1));
+			if(!isomorphism.isPresent()) {
 				System.out.println("Graphs are not isomorphic");
-				return;
 			}
 		} catch (final IOException e) {
 			e.printStackTrace();
@@ -44,14 +41,12 @@ public class Application {
 	}
 
 	private static GraphIsomorphismChecker setUpDependenciesAndGetChecker() {
-		final DegreeCalculator degreeCalc = new DegreeCalculator();
 		final Precondition precondition =
-				new GraphIsomorphismPreconditionCollection(Lists.newArrayList(
-						new DegreePrecondition(degreeCalc),
+				new GraphIsomorphismPreconditionCollection(Arrays.asList(
+						new DegreePrecondition(),
 						new EdgesCountPrecondition(),
 						new VerticesCountPrecondition()));
-		final VertexSorter sorter = new VertexSorter(degreeCalc);
-		final DFSPreOrderBuilder dfsPreOrderBuilder = new DFSPreOrderBuilder(sorter);
+		final DFSPreOrderBuilder dfsPreOrderBuilder = new DFSPreOrderBuilder();
 		final VertexMatchRequirementsFactory requirementsFactory = new VertexMatchRequirementsFactory(dfsPreOrderBuilder);
 		final VertexMatcherFactory vertexMatcherFactory = new VertexMatcherFactory(requirementsFactory);
 		return new GraphIsomorphismChecker(precondition, vertexMatcherFactory);

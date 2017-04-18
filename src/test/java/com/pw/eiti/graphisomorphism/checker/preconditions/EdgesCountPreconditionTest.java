@@ -21,29 +21,29 @@ public class EdgesCountPreconditionTest {
 	}
 
 	@Test
-	public void testFullfils_success() throws Exception {
+	public void testFulfills_success() {
 		// given
 		final Graph graphA = mock(Graph.class);
 		final Graph graphB = mock(Graph.class);
 		when(graphA.getEdges()).thenReturn(Lists.newArrayList(new Edge(1, 2)));
 		when(graphB.getEdges()).thenReturn(Lists.newArrayList(new Edge(7, 5)));
 		// when
-		final boolean fullfils = edgesCountPrecondition.fulfills(graphA, graphB);
+		final boolean fulfills = edgesCountPrecondition.fulfills(graphA, graphB);
 		// then
-		assertThat(fullfils).isTrue();
+		assertThat(fulfills).isTrue();
 	}
 
 	@Test
-	public void testFullfils_failure() throws Exception {
+	public void testFulfills_failure() {
 		// given
 		final Graph graphA = mock(Graph.class);
 		final Graph graphB = mock(Graph.class);
 		when(graphA.getEdges()).thenReturn(Lists.newArrayList(new Edge(1, 2), new Edge(4,  3)));
 		when(graphB.getEdges()).thenReturn(Lists.newArrayList(new Edge(7, 5)));
 		// when
-		final boolean fullfils = edgesCountPrecondition.fulfills(graphA, graphB);
+		final boolean fulfills = edgesCountPrecondition.fulfills(graphA, graphB);
 		// then
-		assertThat(fullfils).isFalse();
+		assertThat(fulfills).isFalse();
 	}
 
 }

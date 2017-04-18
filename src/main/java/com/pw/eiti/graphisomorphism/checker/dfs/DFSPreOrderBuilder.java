@@ -11,14 +11,9 @@ import java.util.Stack;
  * Class used for getting DFS PreOrder order of graph's vertices.
  */
 public class DFSPreOrderBuilder {
-    private final VertexSorter sorter;
-
-    public DFSPreOrderBuilder(final VertexSorter sorter) {
-        this.sorter = sorter;
-    }
 
     public Map<Integer, Integer> getVertexToDFSPreOrder(final Graph graph) {
-        final List<Integer> sortedVertices = sorter.getSortedVertices(graph);
+        final List<Integer> sortedVertices = VertexSorter.getSortedVertices(graph);
         final Map<Integer, Integer> orderMap = new HashMap<>();
         final Stack<Integer> verticesToProcess = new Stack<>();
         sortedVertices.stream()

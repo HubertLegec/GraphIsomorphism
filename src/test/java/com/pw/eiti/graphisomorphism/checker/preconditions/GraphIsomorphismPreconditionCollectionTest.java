@@ -7,44 +7,48 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
+import java.util.Arrays;
 
 public class GraphIsomorphismPreconditionCollectionTest {
 
-	@Test
-	public void testFullfils_whenAllPreconditionsFullfiled_success() throws Exception {
-		// given
-		final GraphIsomorphismPreconditionCollection preconditionCollection = new GraphIsomorphismPreconditionCollection(Lists.newArrayList(
-				getMockPrecondition(true),
-				getMockPrecondition(true),
-				getMockPrecondition(true),
-						getMockPrecondition(true)
-				));
-		// when
-		final boolean fullfils = preconditionCollection.fulfills(null, null);
-		// then
-		assertThat(fullfils).isTrue();
-	}
+    @Test
+    public void testFulfills_whenAllPreconditionsFulfilled_success() {
+        // given
+        final GraphIsomorphismPreconditionCollection preconditionCollection =
+                new GraphIsomorphismPreconditionCollection(
+                        Arrays.asList(
+                                getMockedPrecondition(true),
+                                getMockedPrecondition(true),
+                                getMockedPrecondition(true),
+                                getMockedPrecondition(true)
+                        ));
+        // when
+        final boolean fulfills = preconditionCollection.fulfills(null, null);
+        // then
+        assertThat(fulfills).isTrue();
+    }
 
-	@Test
-	public void testFullfils_whenNotAllPreconditionsFullfiled_failure() throws Exception {
-		// given
-		final GraphIsomorphismPreconditionCollection preconditionCollection = new GraphIsomorphismPreconditionCollection(
-				Lists.newArrayList(
-				getMockPrecondition(true),
-				getMockPrecondition(true),
-						getMockPrecondition(false), getMockPrecondition(true)
-				));
-		// when
-		final boolean fullfils = preconditionCollection.fulfills(null, null);
-		// then
-		assertThat(fullfils).isFalse();
-	}
+    @Test
+    public void testFulfills_whenNotAllPreconditionsFulfilled_failure() {
+        // given
+        final GraphIsomorphismPreconditionCollection preconditionCollection =
+                new GraphIsomorphismPreconditionCollection(
+                        Arrays.asList(
+                                getMockedPrecondition(true),
+                                getMockedPrecondition(true),
+                                getMockedPrecondition(false),
+                                getMockedPrecondition(true)
+                        ));
+        // when
+        final boolean fulfills = preconditionCollection.fulfills(null, null);
+        // then
+        assertThat(fulfills).isFalse();
+    }
 
-	private Precondition getMockPrecondition(final boolean isFullfiled) {
-		final Precondition mockPrecond = mock(Precondition.class);
-		when(mockPrecond.fulfills(any(), any())).thenReturn(isFullfiled);
-		return mockPrecond;
-	}
+    private static Precondition getMockedPrecondition(final boolean isFulfilled) {
+        final Precondition mockPrecondition = mock(Precondition.class);
+        when(mockPrecondition.fulfills(any(), any())).thenReturn(isFulfilled);
+        return mockPrecondition;
+    }
 
 }

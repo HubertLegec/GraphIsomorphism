@@ -5,6 +5,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 
@@ -12,26 +13,21 @@ import org.assertj.core.groups.Tuple;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.pw.eiti.graphisomorphism.model.Graph;
 
 public class DFSPreOrderBuilderTest {
-
-	private VertexSorter mockSorter;
 	private DFSPreOrderBuilder dfsGraphBuilder;
 
 	@Before
 	public void setUp() {
-		mockSorter = mock(VertexSorter.class);
-		dfsGraphBuilder = new DFSPreOrderBuilder(mockSorter);
+		dfsGraphBuilder = new DFSPreOrderBuilder();
 	}
 
 	private Graph setUpTestCase() {
 		// given
 		final Graph mockGraph = mock(Graph.class);
-		when(mockSorter.getSortedVertices(mockGraph)).thenReturn(Lists.newArrayList(0, 1, 2, 3));
-		when(mockGraph.getVertices()).thenReturn(Lists.newArrayList(0, 1, 2, 3));
+		when(mockGraph.getVertices()).thenReturn(Arrays.asList(0, 1, 2, 3));
 		when(mockGraph.getNeighbours(eq(0))).thenReturn(Sets.newHashSet(2));
 		when(mockGraph.getNeighbours(eq(1))).thenReturn(Sets.newHashSet(3));
 		when(mockGraph.getNeighbours(eq(2))).thenReturn(Collections.emptySet());
