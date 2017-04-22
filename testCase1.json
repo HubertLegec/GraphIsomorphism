@@ -1,5 +1,6 @@
 [
   {
+    "name": "GraphA",
     "verticesCount": 20,
     "edges": [
       {
