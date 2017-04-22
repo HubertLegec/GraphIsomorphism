@@ -1,5 +1,7 @@
 package com.pw.eiti.graphisomorphism.checker.vertexmatcher;
 
+import org.apache.log4j.Logger;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.function.Function;
@@ -12,6 +14,7 @@ import static java.util.stream.Collectors.toMap;
  * graph's vertices.
  */
 public class VertexMatching {
+    private static final Logger log = Logger.getLogger(VertexMatching.class);
 	private int matchedVerticesCount;
 	private final int allVerticesCount;
 	private final Integer[] srcToDstMatch;
@@ -47,6 +50,7 @@ public class VertexMatching {
 	 * @param vDst destination graph vertex
 	 */
 	void add(final int vSrc, final int vDst) {
+	    log.info("Add mapping: " + vSrc + " -> " + vDst);
 		if(srcToDstMatch[vSrc] == null) {
 			this.matchedVerticesCount++;
 		}
@@ -55,11 +59,12 @@ public class VertexMatching {
 	}
 
 	/**
-	 * Removes mapping for soruce graph vertex
+	 * Removes mapping for source graph vertex
 	 *
 	 * @param vSrc source graph vertex
 	 */
 	void remove(final int vSrc) {
+	    log.info("Remove mapping: " + vSrc);
 		final Integer vDst = srcToDstMatch[vSrc];
 		if(vDst != null) {
 			this.matchedVerticesCount--;
@@ -106,4 +111,11 @@ public class VertexMatching {
 				.boxed()
 				.collect(toMap(Function.identity(), this::getDstBySrc));
 	}
+
+	public String getSrcToDstMatchString() {
+	    return IntStream.range(0, srcToDstMatch.length)
+                .boxed()
+                .map(idx -> idx + " -> " + srcToDstMatch[idx] + "\n")
+                .reduce("", (a, b) -> a + b);
+    }
 }

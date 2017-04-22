@@ -6,6 +6,7 @@ import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatchRequirement
 import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatcherFactory;
 import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatching;
 import com.pw.eiti.graphisomorphism.model.Graph;
+import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -14,7 +15,7 @@ import java.util.Optional;
  * Class responsible for checking if graphs are isomorphic.
  */
 public class GraphIsomorphismChecker {
-
+    private static final Logger log = Logger.getLogger(GraphIsomorphismChecker.class);
 	private final Precondition precondition;
 	private final VertexMatcherFactory vertexMatcherFactory;
 
@@ -37,6 +38,7 @@ public class GraphIsomorphismChecker {
 	 * @return empty id graphs are not isomorphic, or vertex matching if they are
 	 */
 	public Optional<VertexMatching> getIsomorphism(final Graph first, final Graph second) {
+	    log.info("Get isomorphism for graphs");
 		return Optional.of(precondition.fulfills(first, second))
 				.filter(Boolean::booleanValue)
 				.map(v -> vertexMatcherFactory.getVertexMatcher(first))
@@ -50,6 +52,7 @@ public class GraphIsomorphismChecker {
 	 * @return checker instance
 	 */
 	public static GraphIsomorphismChecker createDefaultChecker() {
+	    log.info("Create default isomorphism checker");
 		final Precondition precondition = new GraphIsomorphismPreconditionCollection(
 				Arrays.asList(
 						new DegreePrecondition(),

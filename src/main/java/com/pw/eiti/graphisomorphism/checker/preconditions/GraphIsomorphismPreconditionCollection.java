@@ -5,7 +5,7 @@ import com.pw.eiti.graphisomorphism.model.Graph;
 import java.util.Collection;
 
 /**
- * Class used for checking preconditions of graph isomorhism.
+ * Class used for checking preconditions of graph isomorphism.
  */
 public class GraphIsomorphismPreconditionCollection implements Precondition {
 

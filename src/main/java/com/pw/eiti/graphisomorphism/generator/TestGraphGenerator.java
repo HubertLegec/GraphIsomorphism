@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pw.eiti.graphisomorphism.model.Edge;
 import com.pw.eiti.graphisomorphism.model.Graph;
+import org.apache.log4j.Logger;
 import org.jgrapht.VertexFactory;
 import org.jgrapht.generate.GnpRandomGraphGenerator;
 import org.jgrapht.graph.ClassBasedVertexFactory;
@@ -26,6 +27,7 @@ import static java.util.stream.Collectors.toMap;
  * It also has method to save generated test case to json file
  */
 public class TestGraphGenerator {
+    private static final Logger log = Logger.getLogger(TestGraphGenerator.class);
 
     /**
      * There is no need to create instance of this class
@@ -41,8 +43,8 @@ public class TestGraphGenerator {
      * @return Generated test case
      */
     public static TestCaseDTO generateTestCase(int verticesCount, double edgeProbability) {
+        log.info("Generate test case with " + verticesCount + " vertices");
         Graph graphA = generateGraph(verticesCount, edgeProbability);
-        graphA.setName("GraphA");
         Map<Integer, Integer> verticesPermutation = getVerticesPermutation(graphA.getVertices());
         Graph graphB = new Graph();
         graphB.setName("GraphB");
@@ -61,6 +63,7 @@ public class TestGraphGenerator {
     }
 
     private static Graph generateGraph(int verticesCount, double edgeProbability) {
+        log.info("Generate graph");
         GnpRandomGraphGenerator<IntVertex, IntEdge> generator = new GnpRandomGraphGenerator<>(verticesCount, edgeProbability);
         VertexFactory<IntVertex> factory = new ClassBasedVertexFactory<>(IntVertex.class);
         org.jgrapht.Graph<IntVertex, IntEdge> graph = new DefaultDirectedGraph<>(IntEdge.class);
@@ -75,6 +78,7 @@ public class TestGraphGenerator {
     }
 
     private static Map<Integer, Integer> getVerticesPermutation(List<Integer> vertices) {
+        log.info("Generate vertices permutation");
         List<Integer> verticesCopy = new ArrayList<>(vertices);
         Collections.shuffle(verticesCopy);
         return IntStream.range(0, vertices.size())
@@ -92,9 +96,11 @@ public class TestGraphGenerator {
      * @throws IOException when file creating fails
      */
     public static void saveTestCaseToFile(TestCaseDTO dto, String path) throws IOException {
+        log.info("Save test case to file: " + path);
         try (Writer writer = new FileWriter(path)) {
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
             gson.toJson(dto, writer);
+            log.info("Test case successfully saved");
         }
     }
 

@@ -2,6 +2,7 @@ package com.pw.eiti.graphisomorphism.checker.vertexmatcher;
 
 import com.pw.eiti.graphisomorphism.model.Edge;
 import com.pw.eiti.graphisomorphism.model.Graph;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import static java.util.stream.Collectors.toList;
  * to other graph's vertices.
  */
 public class VertexMatcher {
+    private static final Logger log = Logger.getLogger(VertexMatcher.class);
     private final List<VertexMatchRequirement> requirements;
     private VertexMatching matching;
 
@@ -21,6 +23,7 @@ public class VertexMatcher {
     }
 
     public Optional<VertexMatching> getMatchingTo(final Graph graph) {
+        log.info("Get matching to: " + graph.getName());
         matching = new VertexMatching(requirements.size());
         matchRecursiveTo(graph);
         return Optional.of(matching)
@@ -28,27 +31,29 @@ public class VertexMatcher {
     }
 
     private void matchRecursiveTo(final Graph graph) {
+        log.info("Matching recursive to: " + graph.getName());
         if (matching.isComplete()) {
             return;
         }
         graph.getVertices()
+                .stream()
+                .filter(vDst -> matching.getSrcByDst(vDst) == null)
+                .filter(vDst -> {
+                    final List<Edge> edgesRequired = getEdgesRequiredForNextToMatch(vDst);
+                    return graph.containsAllEdges(edgesRequired);
+                })
                 .forEach(vDst -> {
-                    if (matching.getSrcByDst(vDst) != null) {
+                    addNextMatch(vDst);
+                    matchRecursiveTo(graph);
+                    if (matching.isComplete()) {
                         return;
                     }
-                    final List<Edge> edgesRequired = getEdgesRequiredForNextToMatch(vDst);
-                    if (graph.containsAllEdges(edgesRequired)) {
-                        addNextMatch(vDst);
-                        matchRecursiveTo(graph);
-                        if (matching.isComplete()) {
-                            return;
-                        }
-                        removeLastMatch();
-                    }
+                    removeLastMatch();
                 });
     }
 
     private List<Edge> getEdgesRequiredForNextToMatch(final Integer vSecond) {
+        log.info("Get edges required for next match: " + vSecond);
         addNextMatch(vSecond);
         final VertexMatchRequirement requirement = getLastRequirement();
         final List<Edge> destEdges = getDstEdges(requirement.getEdgesToMatch());
@@ -57,6 +62,7 @@ public class VertexMatcher {
     }
 
     private List<Edge> getDstEdges(final List<Edge> sourceEdges) {
+        log.info("Get dst edges");
         return sourceEdges.stream()
                 .map(this::getDstEdge)
                 .collect(toList());
@@ -69,12 +75,14 @@ public class VertexMatcher {
     }
 
     private void addNextMatch(final int vDst) {
+        log.info("Add next match: " + vDst);
         final VertexMatchRequirement nextRequirement = getNextRequirement();
         final Integer vSrc = nextRequirement.getVertexToMatch();
         matching.add(vSrc, vDst);
     }
 
     private void removeLastMatch() {
+        log.info("Remove last match");
         final VertexMatchRequirement lastRequirement = getLastRequirement();
         final Integer vSrc = lastRequirement.getVertexToMatch();
         matching.remove(vSrc);

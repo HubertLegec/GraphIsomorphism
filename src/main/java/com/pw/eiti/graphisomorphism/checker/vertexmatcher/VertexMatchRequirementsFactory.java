@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import com.pw.eiti.graphisomorphism.checker.dfs.DFSPreOrderBuilder;
 import com.pw.eiti.graphisomorphism.model.Edge;
 import com.pw.eiti.graphisomorphism.model.Graph;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,6 +15,7 @@ import java.util.Map;
 import static java.util.stream.Collectors.toList;
 
 public class VertexMatchRequirementsFactory {
+    private static final Logger log = Logger.getLogger(VertexMatchRequirementsFactory.class);
     private final DFSPreOrderBuilder dfsPreOrderBuilder;
 
     public VertexMatchRequirementsFactory(final DFSPreOrderBuilder dfsPreOrderBuilder) {
@@ -28,6 +30,7 @@ public class VertexMatchRequirementsFactory {
      * @return requirements for isomorphism to specified graph
      */
     List<VertexMatchRequirement> getRequirementsFor(final Graph graph) {
+        log.info("Get requirements for graph: " + graph.getName());
         final Map<Integer, Integer> dfsPreOrder = dfsPreOrderBuilder.getVertexToDFSPreOrder(graph);
         final List<Integer> verticesByPreOrder = getVerticesByPreOrder(graph, dfsPreOrder);
         final Multimap<Integer, Edge> edgesForVertexRequirements = getEdgesForVertexRequirements(graph, dfsPreOrder);
@@ -40,6 +43,7 @@ public class VertexMatchRequirementsFactory {
     }
 
     private Multimap<Integer, Edge> getEdgesForVertexRequirements(final Graph graph, final Map<Integer, Integer> vertexToDfsPreOrder) {
+        log.info("Get edges for vertex requirements in graph: " + graph.getName());
         final Multimap<Integer, Edge> edgesForVertexRequirements = ArrayListMultimap.create();
         graph.getEdges()
                 .forEach(edge -> {
@@ -52,6 +56,7 @@ public class VertexMatchRequirementsFactory {
     }
 
     private List<Integer> getVerticesByPreOrder(final Graph graph, final Map<Integer, Integer> dfsPreOrder) {
+        log.info("Get vertices by pre order in graph: " + graph.getName());
         return graph.getVertices()
                 .stream()
                 .sorted(Comparator.comparing(dfsPreOrder::get))

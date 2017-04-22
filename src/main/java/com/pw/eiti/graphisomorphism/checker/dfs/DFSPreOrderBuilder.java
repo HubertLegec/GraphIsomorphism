@@ -1,6 +1,7 @@
 package com.pw.eiti.graphisomorphism.checker.dfs;
 
 import com.pw.eiti.graphisomorphism.model.Graph;
+import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +12,10 @@ import java.util.Stack;
  * Class used for getting DFS PreOrder order of graph's vertices.
  */
 public class DFSPreOrderBuilder {
+    private static final Logger log = Logger.getLogger(DFSPreOrderBuilder.class);
 
     public Map<Integer, Integer> getVertexToDFSPreOrder(final Graph graph) {
+        log.info("Get vertex to DFS pre order for graph: " + graph.getName());
         final List<Integer> sortedVertices = VertexSorter.getSortedVertices(graph);
         final Map<Integer, Integer> orderMap = new HashMap<>();
         final Stack<Integer> verticesToProcess = new Stack<>();

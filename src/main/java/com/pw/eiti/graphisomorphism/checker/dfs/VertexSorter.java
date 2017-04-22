@@ -6,6 +6,7 @@ import com.google.common.collect.Multimaps;
 import com.pw.eiti.graphisomorphism.checker.DegreeCalculator;
 import com.pw.eiti.graphisomorphism.model.Graph;
 import com.pw.eiti.graphisomorphism.model.VertexDegree;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import static java.util.stream.Collectors.toList;
  * Class used for sorting vertices in a graph.
  */
 class VertexSorter {
+    private static final Logger log = Logger.getLogger(VertexSorter.class);
 
     /**
      * There is no need to create instance of this class
@@ -30,6 +32,7 @@ class VertexSorter {
      * @return sorted vertices list
      */
     static List<Integer> getSortedVertices(final Graph g) {
+        log.info("Get sorted vertices for graph: " + g.getName());
         final Map<Integer, VertexDegree> vertexToDegreeMap = DegreeCalculator.getDegrees(g);
         final Multimap<VertexDegree, Integer> degreeToVerticesMultimap =
                 Multimaps.invertFrom(Multimaps.forMap(vertexToDegreeMap), ArrayListMultimap.create());
