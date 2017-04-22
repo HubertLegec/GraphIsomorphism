@@ -1,12 +1,16 @@
-package com.pw.eiti.graphisomorphism.utils;
+package com.pw.eiti.graphisomorphism.generator;
 
+import com.google.gson.annotations.Expose;
 import com.pw.eiti.graphisomorphism.model.Graph;
 
 import java.util.Map;
 
 public class TestCaseDTO {
+    @Expose
     Graph graphA;
+    @Expose
     Graph graphB;
+    @Expose
     Map<Integer, Integer> verticesMapping;
 
     public Graph getGraphA() {

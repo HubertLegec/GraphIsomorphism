@@ -4,12 +4,16 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 import com.google.common.collect.HashMultimap;
+import com.google.gson.annotations.Expose;
 
 import static java.util.stream.Collectors.toList;
 
 public class Graph {
+	@Expose
 	private String name;
+	@Expose
 	private Integer verticesCount;
+	@Expose
 	private List<Edge> edges;
 	private HashMultimap<Integer, Integer> neighbourList;
 	private Boolean[][] incidenceMatrix;

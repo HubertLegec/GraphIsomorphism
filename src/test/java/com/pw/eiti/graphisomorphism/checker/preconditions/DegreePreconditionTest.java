@@ -1,22 +1,15 @@
 package com.pw.eiti.graphisomorphism.checker.preconditions;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import com.pw.eiti.graphisomorphism.model.Edge;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.collect.ImmutableMap;
-import com.pw.eiti.graphisomorphism.checker.DegreeCalculator;
 import com.pw.eiti.graphisomorphism.model.Graph;
-import com.pw.eiti.graphisomorphism.model.VertexDegree;
-import sun.security.provider.certpath.Vertex;
 
 public class DegreePreconditionTest {
 	private DegreePrecondition degreePrecondition;

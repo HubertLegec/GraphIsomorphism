@@ -1,6 +1,7 @@
 package com.pw.eiti.graphisomorphism.utils;
 
 import com.google.gson.Gson;
+import com.pw.eiti.graphisomorphism.generator.TestCaseDTO;
 
 import java.io.IOException;
 import java.nio.file.Files;

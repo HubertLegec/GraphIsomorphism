@@ -1,12 +1,16 @@
 package com.pw.eiti.graphisomorphism.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Objects;
 
 /**
  * Edge that joins two vertices.
  */
 public class Edge {
+    @Expose
 	private final Integer v1;
+    @Expose
 	private final Integer v2;
 
 	public Edge(final Integer v1, final Integer v2) {
