@@ -10,6 +10,13 @@ import com.pw.eiti.graphisomorphism.checker.vertexmatcher.VertexMatching;
 import com.pw.eiti.graphisomorphism.model.Graph;
 import org.apache.log4j.Logger;
 
+
+/**
+ * Main entry point of application.
+ * It requires execution parameter with path to file with graphs in JSON format.
+ * If isomorphism is present, it prints vertices mapping on console,
+ * otherwise information that graphs are not isomorphic is returned.
+ */
 public class Application {
 	private static final Logger log = Logger.getLogger(Application.class);
 

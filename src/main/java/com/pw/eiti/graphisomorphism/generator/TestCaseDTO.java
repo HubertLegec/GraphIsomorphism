@@ -5,6 +5,10 @@ import com.pw.eiti.graphisomorphism.model.Graph;
 
 import java.util.Map;
 
+/**
+ * This class represents test case.
+ * It consist of two isomorphic graphs and vertices mapping.
+ */
 public class TestCaseDTO {
     @Expose
     Graph graphA;

@@ -44,6 +44,7 @@ public class TestGraphGenerator {
      */
     public static TestCaseDTO generateTestCase(int verticesCount, double edgeProbability) {
         log.info("Generate test case with " + verticesCount + " vertices");
+        IntVertex.resetCounter();
         Graph graphA = generateGraph(verticesCount, edgeProbability);
         graphA.setName("GraphA");
         Map<Integer, Integer> verticesPermutation = getVerticesPermutation(graphA.getVertices());

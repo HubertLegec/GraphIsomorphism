@@ -8,6 +8,11 @@ import com.google.gson.annotations.Expose;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * Representation of complete graph.
+ * It consist of name, number of vertices, collection of edges,
+ * neighbours list and incidence matrix.
+ */
 public class Graph {
 	@Expose
 	private String name;
@@ -53,6 +58,10 @@ public class Graph {
         });
 	}
 
+	/**
+	 * This method should be call always after load object from JSON.
+	 * JSON doesn't contains incidence matrix and neighbour list, they are created in this method.
+	 */
 	public void reload() {
 		this.incidenceMatrix = new Boolean[this.verticesCount][];
 		for(int i = 0; i < this.verticesCount; ++i) {

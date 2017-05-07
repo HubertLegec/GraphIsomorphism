@@ -6,6 +6,8 @@ import java.util.Objects;
 
 /**
  * Edge that joins two vertices.
+ * It is represented by start and end vertex of edge.
+ * Vertex is represented as Integer.
  */
 public class Edge {
     @Expose

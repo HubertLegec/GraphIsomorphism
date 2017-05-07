@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 
 /**
  * Degree of vertex in a directed graph.
+ * It consist of input and output degree of vertex.
  */
 public class VertexDegree {
 	private int inDeg = 0;

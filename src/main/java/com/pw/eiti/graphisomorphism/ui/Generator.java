@@ -6,6 +6,14 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
+
+/**
+ * This class is used to generate test case and save it to JSON file.
+ * It takes 3 execution parameters:
+ * 1 - path to output file
+ * 2 - size of generated graph
+ * 3 - probability that edge is present between two arbitrary vertices
+ */
 public class Generator {
     private static final Logger log = Logger.getLogger(Generator.class);
 
