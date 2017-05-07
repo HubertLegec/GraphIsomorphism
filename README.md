@@ -12,13 +12,30 @@ Aplikacja do poprawnego działania wymaga systemu operacyjnego
 z zainstalowym oprogramowaniem Java 8.
 
 ## Uruchomienie aplikacji
- Aplikację można uruchomić po zaimportowaniu projektu do wybranego IDE
- (np. IntelliJ Idea lub Eclipse) lub z poziomu linii poleceń będąc w katalogu 'ui' projektu.
+ Aplikację można skompilować i uruchomić po zaimportowaniu projektu do wybranego IDE
+ (np. IntelliJ Idea lub Eclipse) lub z poziomu linii poleceń za pomocą Gradle.
+ 
+ Jako że uruchamianie z poziomu IDE jest oczywiste i zależne od środowiska nie będzie tu opisane.
+ Projekt zawiera Gradle wrapper, więc nie ma konieczności instalowania go.
+ 
+ Budowanie za pomocą Gradle wygląda następująco:
+ 1. Przejdź do głównego katalogu projektu
+ 2. Wprowadź komendę:
+ ```commandline
+./gradlew shadowJar -DinputClass='wybrana klasa startowa'
+```
+Wybrana klasa startowa to jedna z trzech, zależnie od modułu, który chcemy zbudować:
+* Application - domyślnie budowana, nie trzeba specyfikować parametru -D
+* Generator - stworzony zostanie jar z klasą Generator jako punkt wejścia
+* AverageExecutionTimeChecker - stworzony zostanie jar z zadaną klasą jako punkt wejścia
+
+Wykonywalne pliki .jar powstaną w katalogu build/libs.
+Ich uruchomienie zostało opisane poniżej.
+
  
  ### Główny moduł aplikacji
 ```commandline
-javac Application.java
-java Application 'ścieżka do pliku wejściowego'
+java -jar Application.jar 'ścieżka do pliku wejściowego'
 ```
 
 Przykład pliku wejściowego:
@@ -46,8 +63,7 @@ Przykład pliku wejściowego:
 
 ### Generator przypadków testowych
 ```commandline
-javac Generator.java
-java Generator 'ścieżka do pliku wyjściowego' 'rozmiar grafu' 'prawdopodobieństwo wystąpienia krawędzi'
+java -jar Generator.jar 'ścieżka do pliku wyjściowego' 'rozmiar grafu' 'prawdopodobieństwo wystąpienia krawędzi'
 ```
 Przykładowy plik wyjściowy:
 ```json
@@ -79,6 +95,5 @@ Przykładowy plik wyjściowy:
 ```
 ### Wyznaczenie średniego czasu znalezienia izomorfizmu
 ```commandline
-javac AverageExecutionTimeChecker.java
-java AverageExecutionTimeChecker 'liczba próbek' 'rozmiar grafu' 'prawdopodobieństwo wystąpienia krawędzi'
+java -jar AverageExecutionTimeChecker.jar 'liczba próbek' 'rozmiar grafu' 'prawdopodobieństwo wystąpienia krawędzi'
 ```
